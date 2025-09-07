@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShubhAarambh Hackathon</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.156.1/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root" class="bg-gray-900 min-h-screen"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const supabase = Supabase.createClient(
+      process.env.REACT_APP_SUPABASE_URL,
+      process.env.REACT_APP_SUPABASE_ANON_KEY
+    );
+
+    const Countdown = ({ deadline }) => {
+      const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+      useEffect(() => {
+        const interval = setInterval(() => {
+          const now = new Date();
+          const diff = new Date(deadline) - now;
+          setTime({
+            days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+            minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+            seconds: Math.floor((diff % (1000 * 60)) / 1000)
+          });
+        }, 1000);
+        return () => clearInterval(interval);
+      }, [deadline]);
+
+      return (
+        <div className="text-white text-center text-2xl font-bold">
+          <div className="flex justify-center space-x-4">
+            <div>{time.days} Days</div>
+            <div>{time.hours} Hours</div>
+            <div>{time.minutes} Minutes</div>
+            <div>{time.seconds} Seconds</div>
+          </div>
+        </div>
+      );
+    };
+
+    const ThreeScene = () => {
+      useEffect(() => {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-canvas').appendChild(renderer.domElement);
+
+        const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+        const torus = new THREE.Mesh(geometry, material);
+        scene.add(torus);
+
+        camera.position.z = 30;
+
+        const animate = () => {
+          requestAnimationFrame(animate);
+          torus.rotation.x += 0.01;
+          torus.rotation.y += 0.01;
+          renderer.render(scene, camera);
+        };
+        animate();
+
+        window.addEventListener('resize', () => {
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+        });
+      }, []);
+
+      return <div id="three-canvas" className="absolute top-0 left-0 w-full h-full opacity-50"></div>;
+    };
+
+    const App = () => {
+      const [email, setEmail] = useState('');
+      const [question, setQuestion] = useState('');
+      const [response, setResponse] = useState('');
+
+      const handleRegister = async (e) => {
+        e.preventDefault();
+        const { error } = await supabase.from('registrations').insert([{ email }]);
+        if (error) {
+          console.error('Registration error:', error);
+        } else {
+          alert('Registration successful!');
+          setEmail('');
+        }
+      };
+
+      const handleQuestion = async (e) => {
+        e.preventDefault();
+        const { data, error } = await supabase.from('faq').insert([{ question }]);
+        if (error) {
+          console.error('Question error:', error);
+        } else {
+          setResponse('Thank you for your question!');
+          setQuestion('');
+        }
+      };
+
+      return (
+        <div className="relative text-white">
+          <ThreeScene />
+          <div className="relative z-10 max-w-7xl mx-auto p-6">
+            <h1 className="text-5xl font-extrabold text-center mb-8">ShubhAarambh Hackathon</h1>
+            <Countdown deadline="2025-10-03T23:59:00" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              <div className="bg-gray-800 p-6 rounded-lg">
+                <h2 className="text-2xl font-bold">Innovate & Create</h2>
+                <p>Build solutions for real-world problems.</p>
+              </div>
+              <div className="bg-gray-800 p-6 rounded-lg">
+                <h2 className="text-2xl font-bold">Learn & Grow</h2>
+                <p>Sharpen skills with expert mentorship.</p>
+              </div>
+              <div className="bg-gray-800 p-6 rounded-lg">
+                <h2 className="text-2xl font-bold">Network & Collaborate</h2>
+                <p>Connect with innovators and form teams.</p>
+              </div>
+            </div>
+            <div className="mt-12">
+              <h2 className="text-3xl font-bold text-center">Register Now</h2>
+              <form onSubmit={handleRegister} className="max-w-md mx-auto mt-4">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="w-full p-2 mb-4 text-black rounded"
+                  required
+                />
+                <button type="submit" className="w-full bg-green-500 p-2 rounded hover:bg-green-600">
+                  Register (₹69/team)
+                </button>
+              </form>
+            </div>
+            <div className="mt-12">
+              <h2 className="text-3xl font-bold text-center">Ask a Question</h2>
+              <form onSubmit={handleQuestion} className="max-w-md mx-auto mt-4">
+                <input
+                  type="text"
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  placeholder="Ask about the hackathon"
+                  className="w-full p-2 mb-4 text-black rounded"
+                  required
+                />
+                <button type="submit" className="w-full bg-blue-500 p-2 rounded hover:bg-blue-600">
+                  Submit Question
+                </button>
+              </form>
+              {response && <p className="text-center mt-4">{response}</p>}
+            </div>
+            <div className="mt-12 text-center">
+              <h2 className="text-3xl font-bold">Prizes</h2>
+              <p>1st: ₹499 | 2nd: ₹249 | 3rd: ₹125</p>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
