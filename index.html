@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShubhAarambh Hackathon 2025 - Organized by Innovation Junction</title>
+  <title>शुभ-Aarambh Hackathon 2025 - Organized by Innovation Junction</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" type="image/svg+xml">
   <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" type="image/svg+xml">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -667,22 +667,22 @@
  
   <header>
     <nav>
-      <h1>ShubhAarambh</h1>
+      <h1>शुभ-Aarambh</h1>
       <ul>
         <li><a href="#home">Home</a></li>
+        <li><a href="#register">Register</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#team">Team</a></li>
         <li><a href="#features">Why Join</a></li>
         <li><a href="#prizes">Prizes</a></li>
         <li><a href="#schedule">Schedule</a></li>
         <li><a href="#themes">Themes</a></li>
-        <li><a href="#register">Register</a></li>
         <li><button class="theme-toggle" id="theme-toggle">🌙</button></li>
       </ul>
     </nav>
   </header>
   <section id="home" class="hero">
-    <h1>ShubhAarambh 2025</h1>
+    <h1>शुभ-Aarambh 2025</h1>
     <p class="organizer">Organized by Innovation Junction & Team</p>
     <p>Where Innovation Meets Opportunity - Build the Future, One Hack at a Time!</p>
     <div class="countdown" id="countdown">
@@ -701,6 +701,16 @@
       <div>
         <span id="seconds">0</span>
         <small>Seconds</small>
+      </div>
+    </div>
+  </section>
+  <section id="register" class="section animate-on-scroll">
+    <h2 class="section-title">Join the Revolution</h2>
+    <div style="text-align: center;">
+      <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
+        <h3 style="margin-bottom: 1.5rem; color: var(--glow-color);">Ready to innovate?</h3>
+        <p style="margin-bottom: 2rem; color: var(--text-secondary);">Register solo or with your team for just ₹69 and get access to premium resources, mentorship, and networking opportunities worth thousands!</p>
+        <button id="open-register-modal" class="cta-button highlight">Register Now - ₹69</button>
       </div>
     </div>
   </section>
@@ -753,7 +763,7 @@
     </div>
   </section>
   <section id="features" class="section animate-on-scroll">
-    <h2 class="section-title">Why Join ShubhAarambh?</h2>
+    <h2 class="section-title">Why Join शुभ-Aarambh?</h2>
     <div class="features">
       <div class="glass-card feature-card">
         <h3>🚀 Innovation Lab</h3>
@@ -911,7 +921,7 @@
     <h2 class="section-title">Success Stories</h2>
     <div class="features">
       <div class="glass-card">
-        <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"ShubhAarambh was a game-changer! Not only did I learn new technologies, but I also found my co-founder. Our project is now a thriving startup with seed funding!"</p>
+        <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"शुभ-Aarambh was a game-changer! Not only did I learn new technologies, but I also found my co-founder. Our project is now a thriving startup with seed funding!"</p>
         <div style="color: var(--glow-color); font-weight: 600;">- Anisha Patel, Winner 2024</div>
       </div>
      
@@ -923,16 +933,6 @@
       <div class="glass-card">
         <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"Amazing experience! Got recruited by a top tech company right after the hackathon. The skills and connections I gained were invaluable."</p>
         <div style="color: var(--glow-color); font-weight: 600;">- Rohan Singh, Participant 2024</div>
-      </div>
-    </div>
-  </section>
-  <section id="register" class="section animate-on-scroll">
-    <h2 class="section-title">Join the Revolution</h2>
-    <div style="text-align: center;">
-      <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
-        <h3 style="margin-bottom: 1.5rem; color: var(--glow-color);">Ready to innovate?</h3>
-        <p style="margin-bottom: 2rem; color: var(--text-secondary);">Register solo or with your team for just ₹69 and get access to premium resources, mentorship, and networking opportunities worth thousands!</p>
-        <button id="open-register-modal" class="cta-button highlight">Register Now - ₹69</button>
       </div>
     </div>
   </section>
@@ -1041,7 +1041,7 @@
   <div id="joinNowPopup" class="modal">
     <div class="modal-content" style="max-width: 500px; text-align: center;">
       <span class="close" id="popupClose">&times;</span>
-      <h2 style="color: var(--glow-color); margin-bottom: 1rem;">Ready to Join ShubhAarambh?</h2>
+      <h2 style="color: var(--glow-color); margin-bottom: 1rem;">Ready to Join शुभ-Aarambh?</h2>
       <p style="color: var(--text-secondary); margin-bottom: 2rem;">Don't miss out on this opportunity to innovate and win big! Register now for just ₹69.</p>
       <button id="popupRegisterBtn" class="cta-button">Register Now 🚀</button>
     </div>
@@ -1052,7 +1052,7 @@
       <form id="question-form">
         <div class="form-group">
           <label for="question">Ask us anything about the hackathon</label>
-          <textarea id="question" placeholder="What would you like to know about ShubhAarambh 2025?" required rows="4"></textarea>
+          <textarea id="question" placeholder="What would you like to know about शुभ-Aarambh 2025?" required rows="4"></textarea>
         </div>
         <button type="submit" id="question-submit" class="cta-button" style="width: 100%;">Submit Question</button>
       </form>
@@ -1062,7 +1062,7 @@
   <footer>
     <div style="max-width: 1200px; margin: 0 auto;">
       <p style="font-size: 1.1rem; margin-bottom: 1rem;">
-        &copy; 2025 ShubhAarambh Hackathon. Organized with ❤️ by Innovation Junction and Team.
+        &copy; 2025 शुभ-Aarambh Hackathon. Organized with ❤️ by Innovation Junction and Team.
       </p>
       <p style="color: var(--text-secondary);">
         Building the future, one hack at a time. All rights reserved.
@@ -1121,7 +1121,9 @@
     const paymentClose = document.getElementById('paymentClose');
     const uploadClose = document.getElementById('uploadClose');
     let registrationData = null;
-    openRegisterBtn.onclick = () => registerModal.style.display = 'block';
+    openRegisterBtn.onclick = () => {
+      registerModal.style.display = 'block';
+    };
     registerClose.onclick = () => registerModal.style.display = 'none';
     paymentClose.onclick = () => paymentModal.style.display = 'none';
     uploadClose.onclick = () => uploadModal.style.display = 'none';
@@ -1135,7 +1137,11 @@
     const popupClose = document.getElementById('popupClose');
     const popupRegisterBtn = document.getElementById('popupRegisterBtn');
     setTimeout(() => {
-      popupModal.style.display = 'block';
+      if (registerModal.style.display !== 'block' && 
+          paymentModal.style.display !== 'block' && 
+          uploadModal.style.display !== 'block') {
+        popupModal.style.display = 'block';
+      }
     }, 25000);
     popupClose.onclick = () => popupModal.style.display = 'none';
     popupRegisterBtn.onclick = () => {
@@ -1245,10 +1251,9 @@
         uploadResponseElement.innerHTML = `
           <div style="color: #22c55e; text-align: center;">
             🎉 Registration Successful! 🎉<br>
-            <strong>Welcome to ShubhAarambh 2025!</strong><br>
-            <br>
-            📧 Check your email for confirmation<br>
-            💬 Join our WhatsApp group for updates<br>
+            <strong>Welcome to शुभ-Aarambh 2025!</strong><br>
+           
+            <a href="https://chat.whatsapp.com/JhMjOqYrY7MDdxfqf3LRZE?mode=ems_copy_c" target="_blank" style="color: var(--glow-color); text-decoration: underline;">💬 Join our WhatsApp group for updates</a><br>
             🚀 Get ready to innovate!
           </div>
         `;
