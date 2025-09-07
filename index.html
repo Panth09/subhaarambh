@@ -69,6 +69,12 @@
       padding: 0 2rem;
       background: url('https://images.unsplash.com/photo-1516321310764-8d9c7c0f7049') no-repeat center/cover;
       background-blend-mode: overlay;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .hero h1 {
@@ -76,12 +82,25 @@
       font-weight: 700;
       margin-bottom: 1rem;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      animation: slideInFromTop 1s ease-out;
+    }
+
+    @keyframes slideInFromTop {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .hero p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       max-width: 600px;
+      animation: slideInFromBottom 1s ease-out 0.5s;
+      animation-fill-mode: backwards;
+    }
+
+    @keyframes slideInFromBottom {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .countdown {
@@ -93,6 +112,13 @@
       padding: 1rem 2rem;
       border-radius: 10px;
       backdrop-filter: blur(5px);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
     .countdown div {
@@ -115,6 +141,7 @@
       font-size: 2.5rem;
       text-align: center;
       margin-bottom: 2rem;
+      animation: fadeIn 1s ease-in;
     }
 
     .features {
@@ -130,6 +157,16 @@
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
       backdrop-filter: blur(5px);
+      animation: slideIn 1s ease-out;
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.2s; }
+    .feature-card:nth-child(2) { animation-delay: 0.4s; }
+    .feature-card:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .feature-card:hover {
@@ -193,6 +230,49 @@
       padding: 1rem;
       text-align: center;
       margin-top: 4rem;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1001;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+      animation: fadeIn 0.5s;
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 5% auto;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      backdrop-filter: blur(5px);
+      animation: slideInFromTop 0.5s ease-out;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: white;
+      text-decoration: none;
+    }
+
+    .modal h3 {
+      margin-top: 1rem;
     }
 
     @media (max-width: 768px) {
@@ -260,14 +340,39 @@
 
   <section id="register" class="section">
     <h2>Register Now</h2>
-    <div class="form-container">
-      <form id="register-form">
-        <input type="email" id="email" placeholder="Enter your email" required>
-        <button type="submit">Register (₹69/team)</button>
-      </form>
-      <p id="register-response" class="response-message"></p>
+    <div class="form-container" style="text-align: center;">
+      <button id="open-register-modal" style="width: auto; padding: 0.75rem 2rem;">Open Registration Form (₹69/team)</button>
     </div>
   </section>
+
+  <!-- Registration Modal -->
+  <div id="registrationModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Register Your Team</h2>
+      <form id="team-register-form">
+        <input type="text" id="team-name" placeholder="Team Name" required>
+        <h3>Member 1</h3>
+        <input type="text" name="name[]" placeholder="Name" required>
+        <input type="tel" name="phone[]" placeholder="Phone Number" required>
+        <input type="email" name="email[]" placeholder="Email" required>
+        <h3>Member 2</h3>
+        <input type="text" name="name[]" placeholder="Name">
+        <input type="tel" name="phone[]" placeholder="Phone Number">
+        <input type="email" name="email[]" placeholder="Email">
+        <h3>Member 3</h3>
+        <input type="text" name="name[]" placeholder="Name">
+        <input type="tel" name="phone[]" placeholder="Phone Number">
+        <input type="email" name="email[]" placeholder="Email">
+        <h3>Member 4</h3>
+        <input type="text" name="name[]" placeholder="Name">
+        <input type="tel" name="phone[]" placeholder="Phone Number">
+        <input type="email" name="email[]" placeholder="Email">
+        <button type="submit">Submit Registration</button>
+      </form>
+      <p id="team-register-response" class="response-message"></p>
+    </div>
+  </div>
 
   <section id="faq" class="section">
     <h2>Ask a Question</h2>
@@ -297,23 +402,16 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHNuaXB4ZGR1eGxqeWJ3amFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNTEzODEsImV4cCI6MjA3MjgyNzM4MX0.JGuybJNIWsj8pgTc3H-idY_fjhASWFfToZgkr0KeCB4'
     );
 
-    // Test Supabase connection
+    // Test Supabase connection (from previous)
     async function testSupabaseConnection() {
       try {
         const { data, error } = await supabaseClient.from('registrations').select('id').limit(1);
-        if (error) {
-          console.error('Supabase connection test failed:', error);
-          return false;
-        }
-        console.log('Supabase connection test successful:', data);
-        return true;
+        if (error) console.error('Supabase connection test failed:', error);
+        else console.log('Supabase connection test successful:', data);
       } catch (err) {
         console.error('Supabase connection error:', err);
-        return false;
       }
     }
-
-    // Run connection test on page load
     testSupabaseConnection();
 
     // Countdown Timer
@@ -343,25 +441,62 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Register Form Submission
-    document.getElementById('register-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const responseElement = document.getElementById('register-response');
+    // Modal Functionality
+    const modal = document.getElementById('registrationModal');
+    const openBtn = document.getElementById('open-register-modal');
+    const closeSpan = document.getElementsByClassName('close')[0];
 
-      // Validate email format
-      if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-        responseElement.textContent = 'Please enter a valid email address.';
+    openBtn.onclick = function() {
+      modal.style.display = 'block';
+    }
+
+    closeSpan.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    // Team Registration Form Submission
+    document.getElementById('team-register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const teamName = document.getElementById('team-name').value.trim();
+      const names = document.querySelectorAll('input[name="name[]"]');
+      const phones = document.querySelectorAll('input[name="phone[]"]');
+      const emails = document.querySelectorAll('input[name="email[]"]');
+      const responseElement = document.getElementById('team-register-response');
+
+      let members = [];
+      let validMembers = 0;
+      for (let i = 0; i < 4; i++) {
+        const name = names[i].value.trim();
+        const phone = phones[i].value.trim();
+        const email = emails[i].value.trim();
+        if (name && phone && email) {
+          if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+            responseElement.textContent = 'Invalid email for member ' + (i + 1);
+            responseElement.style.color = '#ef4444';
+            return;
+          }
+          members.push({ name, phone, email });
+          validMembers++;
+        }
+      }
+
+      if (!teamName || validMembers === 0) {
+        responseElement.textContent = 'Please provide team name and at least one member\'s details.';
         responseElement.style.color = '#ef4444';
-        console.error('Invalid email format:', email);
         return;
       }
 
       try {
-        console.log('Attempting to register email:', email);
+        console.log('Attempting to register team:', teamName);
         const { data, error } = await supabaseClient
           .from('registrations')
-          .insert([{ email }]);
+          .insert([{ team_name: teamName, members }]);
 
         if (error) {
           console.error('Registration error:', error);
@@ -369,9 +504,23 @@
         }
 
         console.log('Registration successful:', data);
-        responseElement.textContent = 'Registration successful! Check your email for payment details.';
+
+        // Send AJAX to PHP for email
+        const emailResponse = await fetch('send_email.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ team_name: teamName, members })
+        });
+
+        const emailData = await emailResponse.json();
+        if (!emailData.success) {
+          throw new Error('Email sending failed');
+        }
+
+        responseElement.textContent = 'Registration successful! Confirmation emails sent.';
         responseElement.style.color = '#22c55e';
-        document.getElementById('email').value = '';
+        // Clear form
+        document.getElementById('team-register-form').reset();
       } catch (error) {
         console.error('Registration failed:', error);
         responseElement.textContent = error.message || 'Registration failed. Please try again.';
@@ -379,37 +528,29 @@
       }
     });
 
-    // Question Form Submission
+    // Question Form Submission (unchanged)
     document.getElementById('question-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const question = document.getElementById('question').value.trim();
       const responseElement = document.getElementById('question-response');
 
-      // Validate question
       if (!question) {
         responseElement.textContent = 'Please enter a valid question.';
         responseElement.style.color = '#ef4444';
-        console.error('Empty question submitted');
         return;
       }
 
       try {
-        console.log('Attempting to submit question:', question);
         const { data, error } = await supabaseClient
           .from('questions')
           .insert([{ question }]);
 
-        if (error) {
-          console.error('Question submission error:', error);
-          throw error;
-        }
+        if (error) throw error;
 
-        console.log('Question submitted successfully:', data);
         responseElement.textContent = 'Thank you for your question!';
         responseElement.style.color = '#22c55e';
         document.getElementById('question').value = '';
       } catch (error) {
-        console.error('Question submission failed:', error);
         responseElement.textContent = error.message || 'Failed to submit question. Please try again.';
         responseElement.style.color = '#ef4444';
       }
