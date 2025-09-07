@@ -297,6 +297,25 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHNuaXB4ZGR1eGxqeWJ3amFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNTEzODEsImV4cCI6MjA3MjgyNzM4MX0.JGuybJNIWsj8pgTc3H-idY_fjhASWFfToZgkr0KeCB4'
     );
 
+    // Test Supabase connection
+    async function testSupabaseConnection() {
+      try {
+        const { data, error } = await supabaseClient.from('registrations').select('id').limit(1);
+        if (error) {
+          console.error('Supabase connection test failed:', error);
+          return false;
+        }
+        console.log('Supabase connection test successful:', data);
+        return true;
+      } catch (err) {
+        console.error('Supabase connection error:', err);
+        return false;
+      }
+    }
+
+    // Run connection test on page load
+    testSupabaseConnection();
+
     // Countdown Timer
     const deadline = new Date("2025-10-03T23:59:00");
     const countdownElement = document.getElementById('countdown');
@@ -327,27 +346,34 @@
     // Register Form Submission
     document.getElementById('register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = document.getElementById('email').value;
+      const email = document.getElementById('email').value.trim();
       const responseElement = document.getElementById('register-response');
 
-      // Basic email validation
+      // Validate email format
       if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
         responseElement.textContent = 'Please enter a valid email address.';
         responseElement.style.color = '#ef4444';
+        console.error('Invalid email format:', email);
         return;
       }
 
       try {
+        console.log('Attempting to register email:', email);
         const { data, error } = await supabaseClient
           .from('registrations')
           .insert([{ email }]);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Registration error:', error);
+          throw error;
+        }
 
+        console.log('Registration successful:', data);
         responseElement.textContent = 'Registration successful! Check your email for payment details.';
         responseElement.style.color = '#22c55e';
         document.getElementById('email').value = '';
       } catch (error) {
+        console.error('Registration failed:', error);
         responseElement.textContent = error.message || 'Registration failed. Please try again.';
         responseElement.style.color = '#ef4444';
       }
@@ -356,26 +382,34 @@
     // Question Form Submission
     document.getElementById('question-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const question = document.getElementById('question').value;
+      const question = document.getElementById('question').value.trim();
       const responseElement = document.getElementById('question-response');
 
-      if (!question.trim()) {
+      // Validate question
+      if (!question) {
         responseElement.textContent = 'Please enter a valid question.';
         responseElement.style.color = '#ef4444';
+        console.error('Empty question submitted');
         return;
       }
 
       try {
+        console.log('Attempting to submit question:', question);
         const { data, error } = await supabaseClient
           .from('questions')
           .insert([{ question }]);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Question submission error:', error);
+          throw error;
+        }
 
+        console.log('Question submitted successfully:', data);
         responseElement.textContent = 'Thank you for your question!';
         responseElement.style.color = '#22c55e';
         document.getElementById('question').value = '';
       } catch (error) {
+        console.error('Question submission failed:', error);
         responseElement.textContent = error.message || 'Failed to submit question. Please try again.';
         responseElement.style.color = '#ef4444';
       }
