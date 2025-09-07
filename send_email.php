@@ -23,8 +23,8 @@ $members = $data['members'];
 
 // Build email message
 $subject = 'ShubhAarambh Hackathon 2025 - Registration Confirmation';
-$headers = "From: no-reply@shubhaarambh.com\r\n" .
-           "Reply-To: support@shubhaarambh.com\r\n" .
+$headers = "From: junctioniinnovation@gmail.comr\n" .
+           "Reply-To: junctioniinnovation@gmail.com\r\n" .
            "X-Mailer: PHP/" . phpversion();
 
 $message = "Dear Team $team_name,\n\n";
