@@ -445,223 +445,219 @@
     <p>&copy; 2025 ShubhAarambh Hackathon. All rights reserved.</p>
   </footer>
 
-  <script>
-    // Initialize Supabase client
-    const { createClient } = supabase;
-    const supabaseClient = createClient(
-      'https://tgpsnipxdduxljybwjah.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHNuaXB4ZGR1eGxqeWJ3amFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNTEzODEsImV4cCI6MjA3MjgyNzM4MX0.JGuybJNIWsj8pgTc3H-idY_fjhASWFfToZgkr0KeCB4'
-    );
+ <script>
+  // Initialize Supabase client
+  const { createClient } = supabase;
+  const supabaseClient = createClient(
+    'https://tgpsnipxdduxljybwjah.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHNuaXB4ZGR1eGxqeWJ3amFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNTEzODEsImV4cCI6MjA3MjgyNzM4MX0.JGuybJNIWsj8pgTc3H-idY_fjhASWFfToZgkr0KeCB4'
+  );
 
-    // Test Supabase connection
-    async function testSupabaseConnection() {
-      try {
-        const { data, error } = await supabaseClient.from('registrations').select('id').limit(1);
-        if (error) {
-          console.error('Supabase connection test failed:', error);
-          return false;
-        }
-        console.log('Supabase connection test successful:', data);
-        return true;
-      } catch (err) {
-        console.error('Supabase connection error:', err);
+  // Test Supabase connection
+  async function testSupabaseConnection() {
+    try {
+      const { data, error } = await supabaseClient.from('registrations').select('id').limit(1);
+      if (error) {
+        console.error('Supabase connection test failed:', error);
         return false;
       }
+      console.log('Supabase connection test successful:', data);
+      return true;
+    } catch (err) {
+      console.error('Supabase connection error:', err);
+      return false;
     }
-    testSupabaseConnection();
+  }
+  testSupabaseConnection();
 
-    // Countdown Timer
-    const deadline = new Date("2025-10-03T23:59:00");
-    const countdownElement = document.getElementById('countdown');
+  // Countdown Timer
+  const deadline = new Date("2025-10-03T23:59:00");
+  const countdownElement = document.getElementById('countdown');
 
-    function updateCountdown() {
-      const now = new Date();
-      const diff = deadline - now;
+  function updateCountdown() {
+    const now = new Date();
+    const diff = deadline - now;
 
-      if (diff <= 0) {
-        countdownElement.innerHTML = '<p style="color: #ef4444;">Hackathon has started!</p>';
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById('days').textContent = days;
-      document.getElementById('hours').textContent = hours;
-      document.getElementById('minutes').textContent = minutes;
-      document.getElementById('seconds').textContent = seconds;
+    if (diff <= 0) {
+      countdownElement.innerHTML = '<p style="color: #ef4444;">Hackathon has started!</p>';
+      return;
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    // Modal Functionality
-    const modal = document.getElementById('registrationModal');
-    const openBtn = document.getElementById('open-register-modal');
-    const closeSpan = document.getElementsByClassName('close')[0];
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = hours;
+    document.getElementById('minutes').textContent = minutes;
+    document.getElementById('seconds').textContent = seconds;
+  }
 
-    openBtn.onclick = function() {
-      modal.style.display = 'block';
-    }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
 
-    closeSpan.onclick = function() {
+  // Modal Functionality
+  const modal = document.getElementById('registrationModal');
+  const openBtn = document.getElementById('open-register-modal');
+  const closeSpan = document.getElementsByClassName('close')[0];
+
+  openBtn.onclick = function () {
+    modal.style.display = 'block';
+  };
+
+  closeSpan.onclick = function () {
+    modal.style.display = 'none';
+  };
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
       modal.style.display = 'none';
     }
+  };
 
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = 'none';
+  // Team Registration Form Submission
+  document.getElementById('team-register-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const teamName = document.getElementById('team-name').value.trim();
+    const names = document.querySelectorAll('input[name="name[]"]');
+    const phones = document.querySelectorAll('input[name="phone[]"]');
+    const emails = document.querySelectorAll('input[name="email[]"]');
+    const responseElement = document.getElementById('team-register-response');
+
+    let members = [];
+    let validMembers = 0;
+    for (let i = 0; i < 4; i++) {
+      const name = names[i].value.trim();
+      const phone = phones[i].value.trim();
+      const email = emails[i].value.trim();
+      if (i === 0 && (!name || !phone || !email)) {
+        responseElement.textContent = 'Team lead details are required.';
+        responseElement.style.color = '#ef4444';
+        return;
+      }
+      if (name && phone && email) {
+        if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+          responseElement.textContent = `Invalid email for member ${i + 1}.`;
+          responseElement.style.color = '#ef4444';
+          return;
+        }
+        if (!phone.match(/^[0-9]{10}$/)) {
+          responseElement.textContent = `Invalid phone number for member ${i + 1}.`;
+          responseElement.style.color = '#ef4444';
+          return;
+        }
+        members.push({ name, phone, email });
+        validMembers++;
       }
     }
 
-    // Team Registration Form Submission
-    document.getElementById('team-register-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const teamName = document.getElementById('team-name').value.trim();
-      const names = document.querySelectorAll('input[name="name[]"]');
-      const phones = document.querySelectorAll('input[name="phone[]"]');
-      const emails = document.querySelectorAll('input[name="email[]"]');
-      const responseElement = document.getElementById('team-register-response');
+    if (!teamName || validMembers === 0) {
+      responseElement.textContent = 'Please provide a team name and at least the team lead’s details.';
+      responseElement.style.color = '#ef4444';
+      return;
+    }
 
-      let members = [];
-      let validMembers = 0;
-      for (let i = 0; i < 4; i++) {
-        const name = names[i].value.trim();
-        const phone = phones[i].value.trim();
-        const email = emails[i].value.trim();
-        if (i === 0 && (!name || !phone || !email)) {
-          responseElement.textContent = 'Team lead details are required.';
-          responseElement.style.color = '#ef4444';
-          return;
-        }
-        if (name && phone && email) {
-          if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-            responseElement.textContent = `Invalid email for member ${i + 1}.`;
-            responseElement.style.color = '#ef4444';
-            return;
-          }
-          if (!phone.match(/^[0-9]{10}$/)) {
-            responseElement.textContent = `Invalid phone number for member ${i + 1}.`;
-            responseElement.style.color = '#ef4444';
-            return;
-          }
-          members.push({ name, phone, email });
-          validMembers++;
-        }
+    try {
+      console.log('Attempting to register team:', teamName, members);
+      const { data, error } = await supabaseClient.from('registrations').insert([{ team_name: teamName, members }]);
+
+      if (error) {
+        console.error('Supabase registration error:', error);
+        throw new Error(error.message || 'Failed to save registration.');
       }
 
-      if (!teamName || validMembers === 0) {
-        responseElement.textContent = 'Please provide a team name and at least the team lead’s details.';
-        responseElement.style.color = '#ef4444';
-        return;
-      }
+      console.log('Registration successful:', data);
 
+      // Send AJAX request to serverless function for email
+      let rawResponse = '';
+      let emailData = { success: false, error: 'No response from email server' };
       try {
-        console.log('Attempting to register team:', teamName, members);
-        const { data, error } = await supabaseClient
-          .from('registrations')
-          .insert([{ team_name: teamName, members }]);
-
-        if (error) {
-          console.error('Supabase registration error:', error);
-          throw new Error(error.message || 'Failed to save registration.');
-        }
-
-        console.log('Registration successful:', data);
-
-        // Send AJAX request to PHP for email
-        let rawResponse = null;
-        let emailData = { success: false, error: 'No response from email server' };
-        try {
-          const emailResponse = await fetch('send_email.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ team_name: teamName, members })
-          });
-
-          if (!emailResponse.ok) {
-            rawResponse = await emailResponse.text();
-            console.error('Email server returned non-OK status:', emailResponse.status, rawResponse);
-            throw new Error(`HTTP error ${emailResponse.status}: ${rawResponse || 'Unknown error'}`);
-          }
-
-          rawResponse = await emailResponse.text();
-          console.log('Raw email response:', rawResponse);
-
-          try {
-            emailData = JSON.parse(rawResponse);
-          } catch (jsonError) {
-            console.error('Failed to parse email response as JSON:', jsonError, 'Raw response:', rawResponse);
-            throw new Error('Invalid email server response');
-          }
-
-          if (!emailData.success) {
-            console.error('Email sending failed:', emailData.error);
-            throw new Error(emailData.error || 'Failed to send emails');
-          }
-        } catch (emailError) {
-          console.error('Email request failed:', emailError);
-          responseElement.textContent = `Registration saved, but email sending failed: ${emailError.message}`;
-          responseElement.style.color = '#ef4444';
-          return;
-        }
-
-        responseElement.textContent = 'Registration successful! Confirmation emails sent to all members.';
-        responseElement.style.color = '#22c55e';
-        document.getElementById('team-register-form').reset();
-        setTimeout(() => { modal.style.display = 'none'; }, 2000);
-      } catch (error) {
-        console.error('Registration failed:', error);
-        responseElement.textContent = error.message || 'Registration failed. Please try again.';
-        responseElement.style.color = '#ef4444';
-      }
-    });
-
-    // Question Form Submission
-    document.getElementById('question-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const question = document.getElementById('question').value.trim();
-      const responseElement = document.getElementById('question-response');
-
-      if (!question) {
-        responseElement.textContent = 'Please enter a valid question.';
-        responseElement.style.color = '#ef4444';
-        return;
-      }
-
-      try {
-        console.log('Submitting question:', question);
-        const { data, error } = await supabaseClient
-          .from('questions')
-          .insert([{ question }]);
-
-        if (error) {
-          console.error('Question submission error:', error);
-          throw error;
-        }
-
-        console.log('Question submitted:', data);
-        responseElement.textContent = 'Thank you for your question!';
-        responseElement.style.color = '#22c55e';
-        document.getElementById('question').value = '';
-      } catch (error) {
-        console.error('Question submission failed:', error);
-        responseElement.textContent = error.message || 'Failed to submit question. Please try again.';
-        responseElement.style.color = '#ef4444';
-      }
-    });
-
-    // Smooth Scroll for Navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
+        const emailResponse = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ team_name: teamName, members }),
         });
+
+        rawResponse = await emailResponse.text();
+        console.log('Raw email response:', rawResponse);
+
+        if (!emailResponse.ok) {
+          console.error('Email server returned non-OK status:', emailResponse.status, rawResponse);
+          throw new Error(`HTTP error ${emailResponse.status}: ${rawResponse || 'Unknown error'}`);
+        }
+
+        try {
+          emailData = JSON.parse(rawResponse);
+        } catch (jsonError) {
+          console.error('Failed to parse email response as JSON:', jsonError, 'Raw response:', rawResponse);
+          throw new Error('Invalid email server response');
+        }
+
+        if (!emailData.success) {
+          console.error('Email sending failed:', emailData.error);
+          throw new Error(emailData.error || 'Failed to send emails');
+        }
+      } catch (emailError) {
+        console.error('Email request failed:', emailError);
+        responseElement.textContent = `Registration saved, but email sending failed: ${emailError.message}`;
+        responseElement.style.color = '#ef4444';
+        return;
+      }
+
+      responseElement.textContent = 'Registration successful! Confirmation emails sent to all members.';
+      responseElement.style.color = '#22c55e';
+      document.getElementById('team-register-form').reset();
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 2000);
+    } catch (error) {
+      console.error('Registration failed:', error);
+      responseElement.textContent = error.message || 'Registration failed. Please try again.';
+      responseElement.style.color = '#ef4444';
+    }
+  });
+
+  // Question Form Submission
+  document.getElementById('question-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const question = document.getElementById('question').value.trim();
+    const responseElement = document.getElementById('question-response');
+
+    if (!question) {
+      responseElement.textContent = 'Please enter a valid question.';
+      responseElement.style.color = '#ef4444';
+      return;
+    }
+
+    try {
+      console.log('Submitting question:', question);
+      const { data, error } = await supabaseClient.from('questions').insert([{ question }]);
+
+      if (error) {
+        console.error('Question submission error:', error);
+        throw error;
+      }
+
+      console.log('Question submitted:', data);
+      responseElement.textContent = 'Thank you for your question!';
+      responseElement.style.color = '#22c55e';
+      document.getElementById('question').value = '';
+    } question submission failed:', error);
+      responseElement.textContent = error.message || 'Failed to submit question. Please try again.';
+      responseElement.style.color = '#ef4444';
+    }
+  });
+
+  // Smooth Scroll for Navigation
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth',
       });
     });
-  </script>
+  });
+</script>
 </body>
 </html>
