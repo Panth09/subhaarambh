@@ -471,7 +471,7 @@
     testSupabaseConnection();
 
     // Countdown Timer
-    const deadline = new Date("2025-10-03T23:59:00+05:30"); // Explicitly set IST timezone
+    const deadline = new Date("2025-10-03T23:59:00+05:30"); // Explicit IST timezone
     const countdownElement = document.getElementById('countdown');
 
     function updateCountdown() {
@@ -481,7 +481,7 @@
 
         if (diff <= 0) {
           countdownElement.innerHTML = '<p style="color: #ef4444;">Hackathon has started!</p>';
-          clearInterval(countdownInterval); // Stop the timer
+          clearInterval(countdownInterval);
           return;
         }
 
