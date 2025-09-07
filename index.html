@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShubhAarambh Hackathon 2025 - Organized by Innovation Junction</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" type="image/svg+xml">
+  <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" type="image/svg+xml">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,7 +15,6 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     :root {
       --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -25,7 +26,6 @@
       --glass-bg: rgba(255, 255, 255, 0.1);
       --glass-border: rgba(255, 255, 255, 0.2);
     }
-
     body {
       font-family: 'Inter', sans-serif;
       background: var(--dark-gradient);
@@ -34,7 +34,19 @@
       overflow-x: hidden;
       position: relative;
     }
-
+    body.light-theme {
+      --dark-gradient: linear-gradient(135deg, #ffffff 0%, #f0f0f5 50%, #e0e5ee 100%);
+      --text-primary: #0c0c0c;
+      --text-secondary: #4b5563;
+      --glass-bg: rgba(0, 0, 0, 0.1);
+      --glass-border: rgba(0, 0, 0, 0.2);
+      --glow-color: #4facfe;
+    }
+    body.light-theme::before {
+      background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+    }
     body::before {
       content: '';
       position: fixed;
@@ -48,14 +60,12 @@
       z-index: -2;
       pointer-events: none;
     }
-
     #particles-js {
       position: fixed;
       width: 100%;
       height: 100%;
       z-index: -1;
     }
-
     header {
       background: rgba(0, 0, 0, 0.9);
       padding: 1rem 2rem;
@@ -66,12 +76,13 @@
       border-bottom: 1px solid var(--glass-border);
       animation: slideInFromTop 0.8s ease-out;
     }
-
+    body.light-theme header {
+      background: rgba(255, 255, 255, 0.9);
+    }
     @keyframes slideInFromTop {
       from { transform: translateY(-100%); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-
     nav {
       display: flex;
       justify-content: space-between;
@@ -79,7 +90,6 @@
       max-width: 1400px;
       margin: 0 auto;
     }
-
     nav h1 {
       font-family: 'Orbitron', monospace;
       font-size: 2.5rem;
@@ -92,14 +102,12 @@
       letter-spacing: 3px;
       filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.5));
     }
-
     nav ul {
       display: flex;
       list-style: none;
-      gap: 2rem;
+      gap: 1.5rem;
       align-items: center;
     }
-
     nav a {
       color: var(--text-secondary);
       text-decoration: none;
@@ -109,7 +117,6 @@
       border-radius: 25px;
       transition: all 0.3s ease;
     }
-
     nav a::before {
       content: '';
       position: absolute;
@@ -120,17 +127,14 @@
       transition: opacity 0.3s ease;
       z-index: -1;
     }
-
     nav a:hover::before {
       opacity: 1;
     }
-
     nav a:hover {
       color: var(--text-primary);
       transform: translateY(-2px);
       box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
     }
-
     .theme-toggle {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -142,12 +146,10 @@
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
     }
-
     .theme-toggle:hover {
       transform: rotate(360deg) scale(1.1);
       box-shadow: 0 0 20px var(--glow-color);
     }
-
     .hero {
       height: 100vh;
       display: flex;
@@ -159,7 +161,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .hero::before {
       content: '';
       position: absolute;
@@ -170,7 +171,6 @@
       background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="rgba(0,242,254,0.1)" points="0,300 1000,0 1000,400 0,700"/></svg>');
       z-index: -1;
     }
-
     .hero h1 {
       font-family: 'Orbitron', monospace;
       font-size: clamp(3rem, 8vw, 6rem);
@@ -183,12 +183,10 @@
       animation: glowPulse 3s ease-in-out infinite;
       filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.5));
     }
-
     @keyframes glowPulse {
       0%, 100% { filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.5)); }
       50% { filter: drop-shadow(0 0 50px rgba(102, 126, 234, 0.8)); }
     }
-
     .hero .organizer {
       font-size: 1.3rem;
       color: var(--glow-color);
@@ -196,7 +194,6 @@
       font-weight: 600;
       animation: fadeInUp 1s ease-out 0.3s both;
     }
-
     .hero p {
       font-size: 1.4rem;
       margin-bottom: 3rem;
@@ -205,12 +202,10 @@
       line-height: 1.6;
       animation: fadeInUp 1s ease-out 0.6s both;
     }
-
     @keyframes fadeInUp {
       from { transform: translateY(40px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-
     .countdown {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -223,16 +218,13 @@
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
       animation: countdownGlow 3s ease-in-out infinite;
     }
-
     @keyframes countdownGlow {
       0%, 100% { box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); }
       50% { box-shadow: 0 25px 50px rgba(0, 242, 254, 0.2); }
     }
-
     .countdown div {
       text-align: center;
     }
-
     .countdown span {
       font-family: 'Orbitron', monospace;
       font-size: 3rem;
@@ -243,7 +235,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
     .countdown small {
       font-size: 0.9rem;
       color: var(--text-secondary);
@@ -252,13 +243,11 @@
       margin-top: 0.5rem;
       display: block;
     }
-
     .section {
       max-width: 1400px;
       margin: 8rem auto;
       padding: 0 2rem;
     }
-
     .section-title {
       font-family: 'Orbitron', monospace;
       font-size: clamp(2.5rem, 5vw, 4rem);
@@ -270,7 +259,6 @@
       background-clip: text;
       position: relative;
     }
-
     .section-title::after {
       content: '';
       position: absolute;
@@ -282,7 +270,6 @@
       background: var(--accent-gradient);
       border-radius: 2px;
     }
-
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
@@ -293,7 +280,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .glass-card::before {
       content: '';
       position: absolute;
@@ -304,47 +290,39 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
       transition: left 0.5s ease;
     }
-
     .glass-card:hover::before {
       left: 100%;
     }
-
     .glass-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
       border-color: var(--glow-color);
     }
-
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 3rem;
     }
-
     .feature-card h3 {
       font-family: 'Orbitron', monospace;
       font-size: 1.8rem;
       margin-bottom: 1.5rem;
       color: var(--glow-color);
     }
-
     .feature-card p {
       color: var(--text-secondary);
       line-height: 1.6;
       font-size: 1.1rem;
     }
-
     .team-portfolio {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2.5rem;
     }
-
     .team-member {
       text-align: center;
       position: relative;
     }
-
     .team-member-avatar {
       width: 150px;
       height: 150px;
@@ -357,12 +335,10 @@
       padding: 4px;
       transition: all 0.4s ease;
     }
-
     .team-member-avatar:hover {
       transform: scale(1.1);
       filter: drop-shadow(0 0 30px var(--glow-color));
     }
-
     .team-member-avatar img {
       width: 100%;
       height: 100%;
@@ -370,14 +346,12 @@
       object-fit: cover;
       background: var(--dark-gradient);
     }
-
     .team-member h3 {
       font-family: 'Orbitron', monospace;
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
       color: var(--text-primary);
     }
-
     .team-member .role {
       color: var(--glow-color);
       font-weight: 600;
@@ -385,13 +359,11 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-
     .team-member p {
       color: var(--text-secondary);
       line-height: 1.5;
       font-size: 0.95rem;
     }
-
     .prizes-section {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -403,7 +375,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .prizes-section::before {
       content: '';
       position: absolute;
@@ -414,14 +385,12 @@
       background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
       z-index: -1;
     }
-
     .prizes-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
       margin-top: 3rem;
     }
-
     .prize-card {
       background: var(--glass-bg);
       border: 2px solid var(--glass-border);
@@ -430,49 +399,40 @@
       transition: all 0.4s ease;
       position: relative;
     }
-
     .prize-card.first {
       border-color: #ffd700;
       background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), var(--glass-bg));
     }
-
     .prize-card.second {
       border-color: #c0c0c0;
       background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), var(--glass-bg));
     }
-
     .prize-card.third {
       border-color: #cd7f32;
       background: linear-gradient(135deg, rgba(205, 127, 50, 0.1), var(--glass-bg));
     }
-
     .prize-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
-
     .prize-amount {
       font-family: 'Orbitron', monospace;
       font-size: 2.5rem;
       font-weight: 900;
       margin-bottom: 0.5rem;
     }
-
     .prize-card.first .prize-amount { color: #ffd700; }
     .prize-card.second .prize-amount { color: #c0c0c0; }
     .prize-card.third .prize-amount { color: #cd7f32; }
-
     .schedule-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
     }
-
     .schedule-item {
       position: relative;
       padding-left: 2rem;
     }
-
     .schedule-item::before {
       content: '';
       position: absolute;
@@ -483,38 +443,32 @@
       background: var(--accent-gradient);
       border-radius: 2px;
     }
-
     .schedule-date {
       font-family: 'Orbitron', monospace;
       font-size: 1.3rem;
       color: var(--glow-color);
       margin-bottom: 0.5rem;
     }
-
     .themes-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
     }
-
     .theme-card {
       text-align: center;
       position: relative;
     }
-
     .theme-card .icon {
       font-size: 3rem;
       margin-bottom: 1rem;
       display: block;
     }
-
     .theme-card h3 {
       font-family: 'Orbitron', monospace;
       font-size: 1.4rem;
       margin-bottom: 1rem;
       color: var(--glow-color);
     }
-
     .cta-button {
       display: inline-block;
       background: var(--accent-gradient);
@@ -531,23 +485,26 @@
       letter-spacing: 1px;
       box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
     }
-
+    .cta-button.highlight {
+      animation: highlightPulse 2s infinite;
+    }
+    @keyframes highlightPulse {
+      0%, 100% { box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3); transform: scale(1); }
+      50% { box-shadow: 0 20px 50px rgba(0, 242, 254, 0.8); transform: scale(1.05); }
+    }
     .cta-button:hover {
       transform: translateY(-3px);
       box-shadow: 0 20px 40px rgba(0, 242, 254, 0.4);
     }
-
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
       margin-bottom: 6rem;
     }
-
     .stat-card {
       text-align: center;
     }
-
     .stat-number {
       font-family: 'Orbitron', monospace;
       font-size: 3rem;
@@ -559,7 +516,6 @@
       display: block;
       margin-bottom: 0.5rem;
     }
-
     .modal {
       display: none;
       position: fixed;
@@ -573,7 +529,6 @@
       backdrop-filter: blur(10px);
       animation: fadeIn 0.3s ease;
     }
-
     .modal-content {
       background: var(--glass-bg);
       margin: 2% auto;
@@ -586,12 +541,10 @@
       position: relative;
       animation: slideInFromBottom 0.4s ease-out;
     }
-
     @keyframes slideInFromBottom {
       from { transform: translateY(50px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-
     .close {
       position: absolute;
       top: 1rem;
@@ -602,22 +555,18 @@
       cursor: pointer;
       transition: color 0.3s ease;
     }
-
     .close:hover {
       color: var(--text-primary);
     }
-
     .form-group {
       margin-bottom: 1.5rem;
     }
-
     .form-group label {
       display: block;
       margin-bottom: 0.5rem;
       color: var(--glow-color);
       font-weight: 600;
     }
-
     .form-group input,
     .form-group textarea {
       width: 100%;
@@ -630,19 +579,16 @@
       backdrop-filter: blur(10px);
       transition: all 0.3s ease;
     }
-
     .form-group input:focus,
     .form-group textarea:focus {
       outline: none;
       border-color: var(--glow-color);
       box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
     }
-
     .form-group input::placeholder,
     .form-group textarea::placeholder {
       color: var(--text-secondary);
     }
-
     footer {
       background: rgba(0, 0, 0, 0.9);
       padding: 3rem 2rem;
@@ -650,50 +596,44 @@
       border-top: 1px solid var(--glass-border);
       margin-top: 6rem;
     }
-
+    body.light-theme footer {
+      background: rgba(255, 255, 255, 0.9);
+    }
     /* Responsive Design */
     @media (max-width: 768px) {
       nav h1 {
         font-size: 1.8rem;
       }
-
       nav ul {
         display: none;
       }
-
       .countdown {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
         padding: 2rem;
       }
-
       .countdown span {
         font-size: 2rem;
       }
-
       .section {
         margin: 5rem auto;
       }
-
       .modal-content {
         width: 95%;
         padding: 2rem;
         margin: 5% auto;
       }
     }
-
     /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-
     .animate-on-scroll {
       opacity: 0;
       transform: translateY(30px);
       transition: all 0.6s ease;
     }
-
     .animate-on-scroll.visible {
       opacity: 1;
       transform: translateY(0);
@@ -702,7 +642,7 @@
 </head>
 <body>
   <div id="particles-js"></div>
-  
+ 
   <header>
     <nav>
       <h1>ShubhAarambh</h1>
@@ -719,7 +659,6 @@
       </ul>
     </nav>
   </header>
-
   <section id="home" class="hero">
     <h1>ShubhAarambh 2025</h1>
     <p class="organizer">Organized by Innovation Junction & Team</p>
@@ -743,7 +682,6 @@
       </div>
     </div>
   </section>
-
   <section id="about" class="section animate-on-scroll">
     <h2 class="section-title">About Innovation Junction</h2>
     <div class="glass-card" style="text-align: center; max-width: 800px; margin: 0 auto;">
@@ -752,7 +690,6 @@
       </p>
     </div>
   </section>
-
   <section id="team" class="section animate-on-scroll">
     <h2 class="section-title">Meet Our Team</h2>
     <div class="team-portfolio">
@@ -764,7 +701,7 @@
         <div class="role">Lead Organizer</div>
         <p>Full-stack developer and hackathon veteran with 5+ years of experience. Passionate about mentoring young developers and building innovative communities.</p>
       </div>
-      
+     
       <div class="glass-card team-member">
         <div class="team-member-avatar">
           <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" alt="Tech Lead">
@@ -773,7 +710,7 @@
         <div class="role">Technical Director</div>
         <p>AI/ML engineer and tech evangelist. Specializes in emerging technologies and has mentored 100+ students in their coding journey.</p>
       </div>
-      
+     
       <div class="glass-card team-member">
         <div class="team-member-avatar">
           <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Community Manager">
@@ -782,7 +719,7 @@
         <div class="role">Community Manager</div>
         <p>Social impact advocate and community builder. Focuses on creating inclusive tech spaces and connecting diverse talent across the ecosystem.</p>
       </div>
-      
+     
       <div class="glass-card team-member">
         <div class="team-member-avatar">
           <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Design Lead">
@@ -793,7 +730,6 @@
       </div>
     </div>
   </section>
-
   <section id="features" class="section animate-on-scroll">
     <h2 class="section-title">Why Join ShubhAarambh?</h2>
     <div class="features">
@@ -801,58 +737,57 @@
         <h3>🚀 Innovation Lab</h3>
         <p>Access cutting-edge tools, APIs, and platforms to bring your wildest ideas to life. From cloud credits to premium software licenses.</p>
       </div>
-      
+     
       <div class="glass-card feature-card">
         <h3>🎓 Expert Mentorship</h3>
         <p>Learn from industry veterans, startup founders, and tech leaders who'll guide you through challenges and help refine your solutions.</p>
       </div>
-      
+     
       <div class="glass-card feature-card">
         <h3>🌟 Career Opportunities</h3>
         <p>Showcase your skills to top recruiters, venture capitalists, and startup incubators. Many participants have landed dream jobs post-hackathon.</p>
       </div>
-      
+     
       <div class="glass-card feature-card">
         <h3>🤝 Network & Collaborate</h3>
         <p>Connect with like-minded innovators, form lasting partnerships, and become part of a thriving tech community.</p>
       </div>
-      
+     
       <div class="glass-card feature-card">
         <h3>🏆 Recognition & Rewards</h3>
         <p>Win cash prizes, certificates, exclusive swag, and get featured in tech publications. Top teams get accelerator program opportunities.</p>
       </div>
-      
+     
       <div class="glass-card feature-card">
         <h3>💡 Real Impact</h3>
         <p>Work on challenges that matter. Your solutions could become the next big startup or be implemented by partner organizations.</p>
       </div>
     </div>
   </section>
-
   <section id="prizes" class="section animate-on-scroll">
     <div class="prizes-section">
       <h2 class="section-title">🏆 Prize Pool</h2>
       <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">Compete for amazing prizes and recognition!</p>
-      
+     
       <div class="prizes-grid">
         <div class="glass-card prize-card first">
           <div class="prize-amount">₹499</div>
           <h3>🥇 First Place</h3>
           <p>Winner takes all! Plus certificates, premium swag, and mentorship opportunities.</p>
         </div>
-        
+       
         <div class="glass-card prize-card second">
           <div class="prize-amount">₹249</div>
           <h3>🥈 Second Place</h3>
           <p>Outstanding achievement! Certificates, swag, and networking opportunities.</p>
         </div>
-        
+       
         <div class="glass-card prize-card third">
           <div class="prize-amount">₹125</div>
           <h3>🥉 Third Place</h3>
           <p>Excellent work! Certificates, swag, and recognition in our community.</p>
         </div>
-        
+       
         <div class="glass-card prize-card">
           <div class="prize-amount" style="color: var(--glow-color);">🎁</div>
           <h3>Special Mentions</h3>
@@ -861,7 +796,6 @@
       </div>
     </div>
   </section>
-
   <section id="stats" class="section animate-on-scroll">
     <h2 class="section-title">Event Stats</h2>
     <div class="stats-grid">
@@ -883,7 +817,6 @@
       </div>
     </div>
   </section>
-
   <section id="schedule" class="section animate-on-scroll">
     <h2 class="section-title">Event Timeline</h2>
     <div class="schedule-grid">
@@ -892,19 +825,19 @@
         <h3>Registration Deadline</h3>
         <p>Final day for team registration and onboarding. Late entries will be waitlisted based on availability.</p>
       </div>
-      
+     
       <div class="glass-card schedule-item">
         <div class="schedule-date">October 4, 2025</div>
         <h3>Hackathon Kickoff</h3>
         <p>Opening ceremony, team formation, problem statements reveal, and mentorship sessions begin.</p>
       </div>
-      
+     
       <div class="glass-card schedule-item">
         <div class="schedule-date">October 4-5, 2025</div>
         <h3>Development Sprint</h3>
         <p>24-hour intensive coding marathon with continuous mentorship, workshops, and networking breaks.</p>
       </div>
-      
+     
       <div class="glass-card schedule-item">
         <div class="schedule-date">October 5, 2025</div>
         <h3>Demo Day & Awards</h3>
@@ -912,7 +845,6 @@
       </div>
     </div>
   </section>
-
   <section id="themes" class="section animate-on-scroll">
     <h2 class="section-title">Challenge Themes</h2>
     <div class="themes-grid">
@@ -921,31 +853,31 @@
         <h3>Sustainable Tech</h3>
         <p>Build solutions for climate change, renewable energy, waste management, and environmental sustainability.</p>
       </div>
-      
+     
       <div class="glass-card theme-card">
         <span class="icon">🏥</span>
         <h3>Health & Wellness</h3>
         <p>Create innovative healthcare solutions, mental health apps, fitness trackers, and medical assistance tools.</p>
       </div>
-      
+     
       <div class="glass-card theme-card">
         <span class="icon">🤖</span>
         <h3>AI & Machine Learning</h3>
         <p>Develop intelligent systems, automation tools, predictive models, and next-gen AI applications.</p>
       </div>
-      
+     
       <div class="glass-card theme-card">
         <span class="icon">💰</span>
         <h3>FinTech Revolution</h3>
         <p>Innovate in digital payments, blockchain, cryptocurrency, budgeting apps, and financial inclusion.</p>
       </div>
-      
+     
       <div class="glass-card theme-card">
         <span class="icon">🎓</span>
         <h3>EdTech Solutions</h3>
         <p>Transform education with e-learning platforms, skill development tools, and educational games.</p>
       </div>
-      
+     
       <div class="glass-card theme-card">
         <span class="icon">🌐</span>
         <h3>Social Impact</h3>
@@ -953,7 +885,6 @@
       </div>
     </div>
   </section>
-
   <section id="testimonials" class="section animate-on-scroll">
     <h2 class="section-title">Success Stories</h2>
     <div class="features">
@@ -961,43 +892,41 @@
         <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"ShubhAarambh was a game-changer! Not only did I learn new technologies, but I also found my co-founder. Our project is now a thriving startup with seed funding!"</p>
         <div style="color: var(--glow-color); font-weight: 600;">- Anisha Patel, Winner 2024</div>
       </div>
-      
+     
       <div class="glass-card">
         <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"The mentorship was incredible. Industry experts guided us through complex challenges, and the networking opportunities opened doors I never imagined."</p>
         <div style="color: var(--glow-color); font-weight: 600;">- Team CodeCrafters, 2nd Place 2023</div>
       </div>
-      
+     
       <div class="glass-card">
         <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"Amazing experience! Got recruited by a top tech company right after the hackathon. The skills and connections I gained were invaluable."</p>
         <div style="color: var(--glow-color); font-weight: 600;">- Rohan Singh, Participant 2024</div>
       </div>
     </div>
   </section>
-
   <section id="register" class="section animate-on-scroll">
     <h2 class="section-title">Join the Revolution</h2>
     <div style="text-align: center;">
       <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
         <h3 style="margin-bottom: 1.5rem; color: var(--glow-color);">Ready to innovate?</h3>
-        <p style="margin-bottom: 2rem; color: var(--text-secondary);">Register your team for just ₹69 and get access to premium resources, mentorship, and networking opportunities worth thousands!</p>
-        <button id="open-register-modal" class="cta-button">Register Now - ₹69/team</button>
+        <p style="margin-bottom: 2rem; color: var(--text-secondary);">Register solo or with your team for just ₹69 and get access to premium resources, mentorship, and networking opportunities worth thousands!</p>
+        <button id="open-register-modal" class="cta-button highlight">Register Now - ₹69</button>
       </div>
     </div>
   </section>
-
   <!-- Registration Modal -->
   <div id="registrationModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <h2 style="text-align: center; margin-bottom: 2rem; color: var(--glow-color);">Team Registration</h2>
+      <h2 style="text-align: center; margin-bottom: 2rem; color: var(--glow-color);">Registration</h2>
       <form id="team-register-form">
         <div class="form-group">
-          <label for="team-name">Team Name *</label>
-          <input type="text" id="team-name" placeholder="Enter your awesome team name" required>
+          <label for="team-name">Team Name (Optional for Solo)</label>
+          <input type="text" id="team-name" placeholder="Enter your awesome team name (optional)">
         </div>
-        
+       
         <div style="border-top: 1px solid var(--glass-border); margin: 2rem 0; padding-top: 1.5rem;">
-          <h3 style="color: var(--glow-color); margin-bottom: 1rem;">👑 Team Lead</h3>
+          <h3 style="color: var(--glow-color); margin-bottom: 1rem;">👤 Primary Registrant</h3>
           <div class="form-group">
             <input type="text" name="name[]" placeholder="Full Name" required>
           </div>
@@ -1008,10 +937,10 @@
             <input type="email" name="email[]" placeholder="Email Address" required>
           </div>
         </div>
-        
+       
         <div style="border-top: 1px solid var(--glass-border); margin: 2rem 0; padding-top: 1.5rem;">
-          <h3 style="color: var(--glow-color); margin-bottom: 1rem;">👥 Team Members (Optional)</h3>
-          
+          <h3 style="color: var(--glow-color); margin-bottom: 1rem;">👥 Additional Members (Optional)</h3>
+         
           <div style="margin-bottom: 1.5rem;">
             <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Member 2</h4>
             <div class="form-group">
@@ -1024,7 +953,7 @@
               <input type="email" name="email[]" placeholder="Email Address">
             </div>
           </div>
-          
+         
           <div style="margin-bottom: 1.5rem;">
             <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Member 3</h4>
             <div class="form-group">
@@ -1037,7 +966,7 @@
               <input type="email" name="email[]" placeholder="Email Address">
             </div>
           </div>
-          
+         
           <div>
             <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Member 4</h4>
             <div class="form-group">
@@ -1051,16 +980,24 @@
             </div>
           </div>
         </div>
-        
+       
         <button type="submit" id="register-submit" class="cta-button" style="width: 100%; margin-top: 1rem;">
           Complete Registration 🚀
         </button>
       </form>
-      
+     
       <div id="team-register-response" class="response-message"></div>
     </div>
   </div>
-
+  <!-- Join Now Popup Modal -->
+  <div id="joinNowPopup" class="modal">
+    <div class="modal-content" style="max-width: 500px; text-align: center;">
+      <span class="close" id="popupClose">&times;</span>
+      <h2 style="color: var(--glow-color); margin-bottom: 1rem;">Ready to Join ShubhAarambh?</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Don't miss out on this opportunity to innovate and win big! Register now for just ₹69.</p>
+      <button id="popupRegisterBtn" class="cta-button">Register Now 🚀</button>
+    </div>
+  </div>
   <section id="faq" class="section animate-on-scroll">
     <h2 class="section-title">Got Questions?</h2>
     <div class="glass-card" style="max-width: 700px; margin: 0 auto;">
@@ -1074,7 +1011,6 @@
       <div id="question-response" class="response-message"></div>
     </div>
   </section>
-
   <footer>
     <div style="max-width: 1200px; margin: 0 auto;">
       <p style="font-size: 1.1rem; margin-bottom: 1rem;">
@@ -1085,7 +1021,6 @@
       </p>
     </div>
   </footer>
-
   <script>
     // Initialize Supabase client
     const { createClient } = supabase;
@@ -1093,13 +1028,11 @@
       'https://tgpsnipxdduxljybwjah.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHNuaXB4ZGR1eGxqeWJ3amFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNTEzODEsImV4cCI6MjA3MjgyNzM4MX0.JGuybJNIWsj8pgTc3H-idY_fjhASWFfToZgkr0KeCB4'
     );
-
     // Animate elements on scroll
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
     };
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1107,106 +1040,105 @@
         }
       });
     }, observerOptions);
-
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
       observer.observe(el);
     });
-
     // Countdown Timer
     const deadline = new Date("2025-10-03T23:59:00+05:30");
-
     function updateCountdown() {
       const now = new Date();
       const diff = deadline - now;
-
       if (diff <= 0) {
-        document.getElementById('countdown').innerHTML = 
+        document.getElementById('countdown').innerHTML =
           '<div style="grid-column: 1/-1; color: #00f2fe; font-size: 1.5rem; text-align: center;">🚀 Hackathon is Live! Join Now!</div>';
         return;
       }
-
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
       document.getElementById('days').textContent = days;
       document.getElementById('hours').textContent = hours;
       document.getElementById('minutes').textContent = minutes;
       document.getElementById('seconds').textContent = seconds;
     }
-
     setInterval(updateCountdown, 1000);
     updateCountdown();
-
     // Modal functionality
     const modal = document.getElementById('registrationModal');
     const openBtn = document.getElementById('open-register-modal');
     const closeSpan = document.querySelector('.close');
-
     openBtn.onclick = () => modal.style.display = 'block';
     closeSpan.onclick = () => modal.style.display = 'none';
     window.onclick = (event) => {
       if (event.target === modal) modal.style.display = 'none';
     };
-
+    // Join Now Popup
+    const popupModal = document.getElementById('joinNowPopup');
+    const popupClose = document.getElementById('popupClose');
+    const popupRegisterBtn = document.getElementById('popupRegisterBtn');
+    setTimeout(() => {
+      popupModal.style.display = 'block';
+    }, 25000);
+    popupClose.onclick = () => popupModal.style.display = 'none';
+    popupRegisterBtn.onclick = () => {
+      popupModal.style.display = 'none';
+      modal.style.display = 'block';
+    };
+    window.onclick = (event) => {
+      if (event.target === popupModal) popupModal.style.display = 'none';
+      if (event.target === modal) modal.style.display = 'none';
+    };
     // Form submissions
     document.getElementById('team-register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+     
       const teamName = document.getElementById('team-name').value.trim();
       const names = document.querySelectorAll('input[name="name[]"]');
       const phones = document.querySelectorAll('input[name="phone[]"]');
       const emails = document.querySelectorAll('input[name="email[]"]');
       const responseElement = document.getElementById('team-register-response');
       const submitButton = document.getElementById('register-submit');
-
       let members = [];
       let validMembers = 0;
-
       for (let i = 0; i < 4; i++) {
         const name = names[i].value.trim();
         const phone = phones[i].value.trim();
         const email = emails[i].value.trim();
-
-        if (i === 0 && (!name || !phone || !email)) {
-          responseElement.textContent = '❌ Team lead details are required!';
-          responseElement.style.color = '#ef4444';
-          return;
-        }
-
-        if (name && phone && email) {
-          if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-            responseElement.textContent = `❌ Invalid email for ${i === 0 ? 'team lead' : 'member ' + (i + 1)}`;
+        if (name || phone || email) {
+          if (name && phone && email) {
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+              responseElement.textContent = `❌ Invalid email for member ${i + 1}`;
+              responseElement.style.color = '#ef4444';
+              return;
+            }
+            if (!phone.match(/^[0-9]{10}$/)) {
+              responseElement.textContent = `❌ Invalid phone number for member ${i + 1}`;
+              responseElement.style.color = '#ef4444';
+              return;
+            }
+            members.push({ name, phone, email });
+            validMembers++;
+          } else {
+            responseElement.textContent = `❌ All fields required for member ${i + 1} if any provided`;
             responseElement.style.color = '#ef4444';
             return;
           }
-          if (!phone.match(/^[0-9]{10}$/)) {
-            responseElement.textContent = `❌ Invalid phone number for ${i === 0 ? 'team lead' : 'member ' + (i + 1)}`;
-            responseElement.style.color = '#ef4444';
-            return;
-          }
-          members.push({ name, phone, email });
-          validMembers++;
         }
       }
-
-      if (!teamName || validMembers === 0) {
-        responseElement.textContent = '❌ Please provide team name and at least team lead details!';
+      if (validMembers === 0) {
+        responseElement.textContent = '❌ At least one member (primary registrant) is required!';
         responseElement.style.color = '#ef4444';
         return;
       }
-
       try {
         submitButton.disabled = true;
         submitButton.textContent = 'Registering...';
-        
+       
         const { data, error } = await supabaseClient
           .from('registrations')
-          .insert([{ team_name: teamName, members }]);
-
+          .insert([{ team_name: teamName || 'Solo Registrant', members }]);
         if (error) throw error;
-
         responseElement.innerHTML = `
           <div style="color: #22c55e; text-align: center;">
             🎉 Registration Successful! 🎉<br>
@@ -1217,7 +1149,7 @@
             🚀 Get ready to innovate!
           </div>
         `;
-        
+       
         document.getElementById('team-register-form').reset();
         setTimeout(() => {
           modal.style.display = 'none';
@@ -1225,7 +1157,6 @@
           submitButton.disabled = false;
           submitButton.textContent = 'Complete Registration 🚀';
         }, 5000);
-
       } catch (error) {
         responseElement.textContent = `❌ Registration failed: ${error.message}`;
         responseElement.style.color = '#ef4444';
@@ -1233,45 +1164,39 @@
         submitButton.textContent = 'Complete Registration 🚀';
       }
     });
-
     document.getElementById('question-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+     
       const question = document.getElementById('question').value.trim();
       const responseElement = document.getElementById('question-response');
       const submitButton = document.getElementById('question-submit');
-
       if (!question) {
         responseElement.textContent = '❌ Please enter a valid question!';
         responseElement.style.color = '#ef4444';
         return;
       }
-
       try {
         submitButton.disabled = true;
         submitButton.textContent = 'Submitting...';
-        
+       
         const { error } = await supabaseClient
           .from('questions')
           .insert([{ question }]);
-
         if (error) throw error;
-
         responseElement.innerHTML = `
           <div style="color: #22c55e; text-align: center;">
             ✅ Question submitted successfully!<br>
             We'll get back to you soon via email or WhatsApp.
           </div>
         `;
-        
+       
         document.getElementById('question').value = '';
-        
+       
         setTimeout(() => {
           responseElement.innerHTML = '';
           submitButton.disabled = false;
           submitButton.textContent = 'Submit Question';
         }, 3000);
-
       } catch (error) {
         responseElement.textContent = `❌ Failed to submit: ${error.message}`;
         responseElement.style.color = '#ef4444';
@@ -1279,7 +1204,6 @@
         submitButton.textContent = 'Submit Question';
       }
     });
-
     // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -1290,7 +1214,6 @@
         }
       });
     });
-
     // Particles.js configuration
     particlesJS('particles-js', {
       particles: {
@@ -1299,78 +1222,75 @@
         shape: { type: 'circle' },
         opacity: { value: 0.6, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1 } },
         size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1 } },
-        line_linked: { 
-          enable: true, 
-          distance: 150, 
-          color: '#00f2fe', 
-          opacity: 0.4, 
-          width: 1 
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: '#00f2fe',
+          opacity: 0.4,
+          width: 1
         },
-        move: { 
-          enable: true, 
-          speed: 2, 
-          direction: 'none', 
-          random: false, 
-          straight: false, 
-          out_mode: 'out', 
-          bounce: false 
+        move: {
+          enable: true,
+          speed: 2,
+          direction: 'none',
+          random: false,
+          straight: false,
+          out_mode: 'out',
+          bounce: false
         }
       },
       interactivity: {
         detect_on: 'canvas',
-        events: { 
-          onhover: { enable: true, mode: 'repulse' }, 
-          onclick: { enable: true, mode: 'push' }, 
-          resize: true 
+        events: {
+          onhover: { enable: true, mode: 'repulse' },
+          onclick: { enable: true, mode: 'push' },
+          resize: true
         },
-        modes: { 
-          grab: { distance: 140, line_linked: { opacity: 1 } }, 
-          bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, 
-          repulse: { distance: 200, duration: 0.4 }, 
-          push: { particles_nb: 4 }, 
-          remove: { particles_nb: 2 } 
+        modes: {
+          grab: { distance: 140, line_linked: { opacity: 1 } },
+          bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+          repulse: { distance: 200, duration: 0.4 },
+          push: { particles_nb: 4 },
+          remove: { particles_nb: 2 }
         }
       },
       retina_detect: true
     });
-
     // Theme toggle
     document.getElementById('theme-toggle').addEventListener('click', function() {
       document.body.classList.toggle('light-theme');
       this.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
     });
-
     // Stats animation
     function animateValue(elementId, start, end, duration) {
       const element = document.getElementById(elementId);
       if (!element) return;
-      
+     
       const startTimestamp = performance.now();
       const step = (timestamp) => {
         const elapsed = timestamp - startTimestamp;
         const progress = Math.min(elapsed / duration, 1);
         const value = Math.floor(progress * (end - start) + start);
         element.textContent = value;
-        
+       
         if (progress < 1) {
           requestAnimationFrame(step);
         }
       };
       requestAnimationFrame(step);
     }
-
     // Update stats from database
     async function updateStats() {
       try {
         const { data, error } = await supabaseClient
           .from('registrations')
           .select('members');
-        
+       
         if (!error) {
           const teams = data.length;
-          const participants = data.reduce((sum, team) => 
+          const participants = data.reduce((sum, team) =>
             sum + (team.members ? team.members.length : 0), 0);
-          
+         
           animateValue('teams-registered', 0, teams, 2000);
           animateValue('participants', 0, participants, 2000);
         }
@@ -1378,7 +1298,6 @@
         console.log('Stats update failed:', error);
       }
     }
-
     // Initialize stats
     updateStats();
     setInterval(updateStats, 30000); // Update every 30 seconds
