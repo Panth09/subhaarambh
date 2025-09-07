@@ -27,6 +27,12 @@
       width: 100%;
       z-index: 1000;
       backdrop-filter: blur(5px);
+      animation: slideInFromTop 0.5s ease-out;
+    }
+
+    @keyframes slideInFromTop {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
     }
 
     nav {
@@ -38,21 +44,39 @@
     }
 
     nav h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     nav ul {
       display: flex;
       list-style: none;
-      gap: 1.5rem;
+      gap: 2rem;
     }
 
     nav a {
       color: #ffffff;
       text-decoration: none;
       font-weight: 500;
+      position: relative;
       transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: #93c5fd;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
     }
 
     nav a:hover {
@@ -69,56 +93,51 @@
       padding: 0 2rem;
       background: url('https://images.unsplash.com/photo-1516321310764-8d9c7c0f7049') no-repeat center/cover;
       background-blend-mode: overlay;
-      animation: fadeIn 2s ease-in;
+      animation: zoomIn 2s ease-in;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    @keyframes zoomIn {
+      from { background-size: 120%; opacity: 0; }
+      to { background-size: 100%; opacity: 1; }
     }
 
     .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      animation: slideInFromTop 1s ease-out;
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      animation: fadeInUp 1s ease-out;
     }
 
-    @keyframes slideInFromTop {
-      from { transform: translateY(-50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      max-width: 600px;
-      animation: slideInFromBottom 1s ease-out 0.5s;
-      animation-fill-mode: backwards;
-    }
-
-    @keyframes slideInFromBottom {
+    @keyframes fadeInUp {
       from { transform: translateY(50px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
 
-    .countdown {
-      display: flex;
-      gap: 1.5rem;
-      font-size: 1.5rem;
-      font-weight: 600;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      backdrop-filter: blur(5px);
-      animation: pulse 2s infinite;
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      animation: fadeInUp 1s ease-out 0.5s;
+      animation-fill-mode: backwards;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    .countdown {
+      display: flex;
+      gap: 2rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1.5rem 3rem;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      animation: pulseGlow 2s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
+      100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
     }
 
     .countdown div {
@@ -128,108 +147,118 @@
     }
 
     .countdown span {
-      font-size: 2rem;
+      font-size: 2.5rem;
+      font-weight: bold;
     }
 
     .section {
       max-width: 1200px;
-      margin: 4rem auto;
+      margin: 5rem auto;
       padding: 0 2rem;
     }
 
     .section h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       animation: fadeIn 1s ease-in;
     }
 
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
     }
 
     .feature-card {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 2rem;
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 2.5rem;
+      border-radius: 15px;
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
-      backdrop-filter: blur(5px);
-      animation: slideIn 1s ease-out;
+      backdrop-filter: blur(10px);
+      animation: slideInLeft 0.8s ease-out;
     }
 
-    .feature-card:nth-child(1) { animation-delay: 0.2s; }
-    .feature-card:nth-child(2) { animation-delay: 0.4s; }
-    .feature-card:nth-child(3) { animation-delay: 0.6s; }
+    .feature-card:nth-child(2) { animation-delay: 0.2s; }
+    .feature-card:nth-child(3) { animation-delay: 0.4s; }
 
-    @keyframes slideIn {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes slideInLeft {
+      from { transform: translateX(-50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transform: translateY(-15px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
 
     .feature-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
     }
 
     .form-container {
-      max-width: 500px;
+      max-width: 600px;
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 2rem;
-      border-radius: 10px;
-      backdrop-filter: blur(5px);
+      background: rgba(255, 255, 255, 0.15);
+      padding: 2.5rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
     }
 
     .form-container input {
       width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
+      padding: 1rem;
+      margin-bottom: 1.2rem;
       border: none;
-      border-radius: 5px;
-      font-size: 1rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: box-shadow 0.3s;
+    }
+
+    .form-container input:focus {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      outline: none;
     }
 
     .form-container button {
       width: 100%;
-      padding: 0.75rem;
+      padding: 1rem;
       background: #22c55e;
       color: #ffffff;
       border: none;
-      border-radius: 5px;
-      font-size: 1rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.2s;
     }
 
     .form-container button:hover {
       background: #16a34a;
+      transform: scale(1.05);
     }
 
     .response-message {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       text-align: center;
       font-weight: 500;
+      animation: fadeIn 0.5s ease-in;
     }
 
     .prizes {
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      animation: fadeIn 1s ease-in;
     }
 
     footer {
       background: rgba(0, 0, 0, 0.7);
-      padding: 1rem;
+      padding: 1.5rem;
       text-align: center;
-      margin-top: 4rem;
+      margin-top: 5rem;
+      animation: fadeIn 1s ease-in;
     }
 
     /* Modal Styles */
@@ -242,56 +271,78 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0,0,0,0.4);
-      animation: fadeIn 0.5s;
+      background-color: rgba(0, 0, 0, 0.6);
+      animation: fadeIn 0.5s ease-in;
     }
 
     .modal-content {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
       margin: 5% auto;
-      padding: 2rem;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 600px;
-      backdrop-filter: blur(5px);
-      animation: slideInFromTop 0.5s ease-out;
+      padding: 2.5rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 700px;
+      backdrop-filter: blur(10px);
+      animation: zoomInModal 0.5s ease-out;
+    }
+
+    @keyframes zoomInModal {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     .close {
-      color: #aaa;
+      color: #ccc;
       float: right;
-      font-size: 28px;
+      font-size: 30px;
       font-weight: bold;
       cursor: pointer;
+      transition: color 0.3s;
     }
 
     .close:hover,
     .close:focus {
-      color: white;
-      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .modal h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
 
     .modal h3 {
-      margin-top: 1rem;
+      font-size: 1.4rem;
+      margin: 1rem 0 0.5rem;
+      color: #93c5fd;
+    }
+
+    .modal input {
+      margin-bottom: 1rem;
     }
 
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
       }
 
       .countdown {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
       }
 
       .countdown span {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
       }
 
       nav ul {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
+      }
+
+      .modal-content {
+        width: 95%;
+        padding: 1.5rem;
       }
     }
   </style>
@@ -341,7 +392,7 @@
   <section id="register" class="section">
     <h2>Register Now</h2>
     <div class="form-container" style="text-align: center;">
-      <button id="open-register-modal" style="width: auto; padding: 0.75rem 2rem;">Open Registration Form (₹69/team)</button>
+      <button id="open-register-modal" style="width: auto; padding: 1rem 3rem;">Open Registration Form (₹69/team)</button>
     </div>
   </section>
 
@@ -349,24 +400,24 @@
   <div id="registrationModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <h2>Register Your Team</h2>
+      <h2>Team Registration</h2>
       <form id="team-register-form">
         <input type="text" id="team-name" placeholder="Team Name" required>
-        <h3>Member 1</h3>
+        <h3>Member 1 (Team Lead)</h3>
         <input type="text" name="name[]" placeholder="Name" required>
-        <input type="tel" name="phone[]" placeholder="Phone Number" required>
+        <input type="tel" name="phone[]" placeholder="Phone Number" pattern="[0-9]{10}" title="Enter a valid 10-digit phone number" required>
         <input type="email" name="email[]" placeholder="Email" required>
         <h3>Member 2</h3>
         <input type="text" name="name[]" placeholder="Name">
-        <input type="tel" name="phone[]" placeholder="Phone Number">
+        <input type="tel" name="phone[]" placeholder="Phone Number" pattern="[0-9]{10}" title="Enter a valid 10-digit phone number">
         <input type="email" name="email[]" placeholder="Email">
         <h3>Member 3</h3>
         <input type="text" name="name[]" placeholder="Name">
-        <input type="tel" name="phone[]" placeholder="Phone Number">
+        <input type="tel" name="phone[]" placeholder="Phone Number" pattern="[0-9]{10}" title="Enter a valid 10-digit phone number">
         <input type="email" name="email[]" placeholder="Email">
         <h3>Member 4</h3>
         <input type="text" name="name[]" placeholder="Name">
-        <input type="tel" name="phone[]" placeholder="Phone Number">
+        <input type="tel" name="phone[]" placeholder="Phone Number" pattern="[0-9]{10}" title="Enter a valid 10-digit phone number">
         <input type="email" name="email[]" placeholder="Email">
         <button type="submit">Submit Registration</button>
       </form>
@@ -402,14 +453,19 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHNuaXB4ZGR1eGxqeWJ3amFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNTEzODEsImV4cCI6MjA3MjgyNzM4MX0.JGuybJNIWsj8pgTc3H-idY_fjhASWFfToZgkr0KeCB4'
     );
 
-    // Test Supabase connection (from previous)
+    // Test Supabase connection
     async function testSupabaseConnection() {
       try {
         const { data, error } = await supabaseClient.from('registrations').select('id').limit(1);
-        if (error) console.error('Supabase connection test failed:', error);
-        else console.log('Supabase connection test successful:', data);
+        if (error) {
+          console.error('Supabase connection test failed:', error);
+          return false;
+        }
+        console.log('Supabase connection test successful:', data);
+        return true;
       } catch (err) {
         console.error('Supabase connection error:', err);
+        return false;
       }
     }
     testSupabaseConnection();
@@ -475,9 +531,19 @@
         const name = names[i].value.trim();
         const phone = phones[i].value.trim();
         const email = emails[i].value.trim();
+        if (i === 0 && (!name || !phone || !email)) {
+          responseElement.textContent = 'Team lead details are required.';
+          responseElement.style.color = '#ef4444';
+          return;
+        }
         if (name && phone && email) {
           if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-            responseElement.textContent = 'Invalid email for member ' + (i + 1);
+            responseElement.textContent = `Invalid email for member ${i + 1}.`;
+            responseElement.style.color = '#ef4444';
+            return;
+          }
+          if (!phone.match(/^[0-9]{10}$/)) {
+            responseElement.textContent = `Invalid phone number for member ${i + 1}.`;
             responseElement.style.color = '#ef4444';
             return;
           }
@@ -487,40 +553,57 @@
       }
 
       if (!teamName || validMembers === 0) {
-        responseElement.textContent = 'Please provide team name and at least one member\'s details.';
+        responseElement.textContent = 'Please provide a team name and at least the team lead’s details.';
         responseElement.style.color = '#ef4444';
         return;
       }
 
       try {
-        console.log('Attempting to register team:', teamName);
+        console.log('Attempting to register team:', teamName, members);
         const { data, error } = await supabaseClient
           .from('registrations')
           .insert([{ team_name: teamName, members }]);
 
         if (error) {
-          console.error('Registration error:', error);
+          console.error('Supabase registration error:', error);
           throw error;
         }
 
         console.log('Registration successful:', data);
 
-        // Send AJAX to PHP for email
-        const emailResponse = await fetch('send_email.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ team_name: teamName, members })
-        });
+        // Send AJAX request to PHP for email
+        let emailData = { success: false, error: 'No response from email server' };
+        try {
+          const emailResponse = await fetch('send_email.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ team_name: teamName, members })
+          });
 
-        const emailData = await emailResponse.json();
-        if (!emailData.success) {
-          throw new Error('Email sending failed');
+          // Log raw response for debugging
+          const rawResponse = await emailResponse.text();
+          console.log('Raw email response:', rawResponse);
+
+          // Attempt to parse JSON
+          emailData = JSON.parse(rawResponse);
+        } catch (jsonError) {
+          console.error('Failed to parse email response as JSON:', jsonError, rawResponse);
+          responseElement.textContent = 'Registration saved, but failed to send emails: Invalid server response.';
+          responseElement.style.color = '#ef4444';
+          return;
         }
 
-        responseElement.textContent = 'Registration successful! Confirmation emails sent.';
+        if (!emailData.success) {
+          console.error('Email sending failed:', emailData.error);
+          responseElement.textContent = `Registration saved, but email sending failed: ${emailData.error}`;
+          responseElement.style.color = '#ef4444';
+          return;
+        }
+
+        responseElement.textContent = 'Registration successful! Confirmation emails sent to all members.';
         responseElement.style.color = '#22c55e';
-        // Clear form
         document.getElementById('team-register-form').reset();
+        setTimeout(() => { modal.style.display = 'none'; }, 2000);
       } catch (error) {
         console.error('Registration failed:', error);
         responseElement.textContent = error.message || 'Registration failed. Please try again.';
@@ -528,7 +611,7 @@
       }
     });
 
-    // Question Form Submission (unchanged)
+    // Question Form Submission
     document.getElementById('question-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const question = document.getElementById('question').value.trim();
@@ -541,16 +624,22 @@
       }
 
       try {
+        console.log('Submitting question:', question);
         const { data, error } = await supabaseClient
           .from('questions')
           .insert([{ question }]);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Question submission error:', error);
+          throw error;
+        }
 
+        console.log('Question submitted:', data);
         responseElement.textContent = 'Thank you for your question!';
         responseElement.style.color = '#22c55e';
         document.getElementById('question').value = '';
       } catch (error) {
+        console.error('Question submission failed:', error);
         responseElement.textContent = error.message || 'Failed to submit question. Please try again.';
         responseElement.style.color = '#ef4444';
       }
