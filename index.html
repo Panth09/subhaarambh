@@ -566,12 +566,13 @@
 
         if (error) {
           console.error('Supabase registration error:', error);
-          throw error;
+          throw new Error(error.message || 'Failed to save registration.');
         }
 
         console.log('Registration successful:', data);
 
         // Send AJAX request to PHP for email
+        let rawResponse = null;
         let emailData = { success: false, error: 'No response from email server' };
         try {
           const emailResponse = await fetch('send_email.php', {
@@ -580,22 +581,29 @@
             body: JSON.stringify({ team_name: teamName, members })
           });
 
-          // Log raw response for debugging
-          const rawResponse = await emailResponse.text();
+          if (!emailResponse.ok) {
+            rawResponse = await emailResponse.text();
+            console.error('Email server returned non-OK status:', emailResponse.status, rawResponse);
+            throw new Error(`HTTP error ${emailResponse.status}: ${rawResponse || 'Unknown error'}`);
+          }
+
+          rawResponse = await emailResponse.text();
           console.log('Raw email response:', rawResponse);
 
-          // Attempt to parse JSON
-          emailData = JSON.parse(rawResponse);
-        } catch (jsonError) {
-          console.error('Failed to parse email response as JSON:', jsonError, rawResponse);
-          responseElement.textContent = 'Registration saved, but failed to send emails: Invalid server response.';
-          responseElement.style.color = '#ef4444';
-          return;
-        }
+          try {
+            emailData = JSON.parse(rawResponse);
+          } catch (jsonError) {
+            console.error('Failed to parse email response as JSON:', jsonError, 'Raw response:', rawResponse);
+            throw new Error('Invalid email server response');
+          }
 
-        if (!emailData.success) {
-          console.error('Email sending failed:', emailData.error);
-          responseElement.textContent = `Registration saved, but email sending failed: ${emailData.error}`;
+          if (!emailData.success) {
+            console.error('Email sending failed:', emailData.error);
+            throw new Error(emailData.error || 'Failed to send emails');
+          }
+        } catch (emailError) {
+          console.error('Email request failed:', emailError);
+          responseElement.textContent = `Registration saved, but email sending failed: ${emailError.message}`;
           responseElement.style.color = '#ef4444';
           return;
         }
