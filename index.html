@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShubhAarambh Hackathon</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -18,15 +19,23 @@
       color: #ffffff;
       min-height: 100vh;
       overflow-x: hidden;
+      transition: background 0.5s ease;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
 
     header {
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.8);
       padding: 1rem 2rem;
       position: fixed;
       width: 100%;
       z-index: 1000;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(8px);
       animation: slideInFromTop 0.5s ease-out;
     }
 
@@ -44,16 +53,16 @@
     }
 
     nav h1 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
     nav ul {
       display: flex;
       list-style: none;
-      gap: 2rem;
+      gap: 2.5rem;
     }
 
     nav a {
@@ -72,7 +81,7 @@
       bottom: -5px;
       left: 0;
       background-color: #93c5fd;
-      transition: width 0.3s;
+      transition: width 0.3s ease-in-out;
     }
 
     nav a:hover::after {
@@ -81,6 +90,19 @@
 
     nav a:hover {
       color: #93c5fd;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(180deg);
     }
 
     .hero {
@@ -102,10 +124,10 @@
     }
 
     .hero h1 {
-      font-size: 4rem;
+      font-size: 4.5rem;
       font-weight: 800;
       margin-bottom: 1.5rem;
-      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
       animation: fadeInUp 1s ease-out;
     }
 
@@ -115,9 +137,9 @@
     }
 
     .hero p {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 2.5rem;
-      max-width: 700px;
+      max-width: 800px;
       animation: fadeInUp 1s ease-out 0.5s;
       animation-fill-mode: backwards;
     }
@@ -125,19 +147,19 @@
     .countdown {
       display: flex;
       gap: 2rem;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 600;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 1.5rem 3rem;
-      border-radius: 12px;
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1.8rem 3.5rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
       animation: pulseGlow 2s infinite;
     }
 
     @keyframes pulseGlow {
-      0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
-      50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
-      100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+      0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+      50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 255, 255, 0.5); }
+      100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
     }
 
     .countdown div {
@@ -147,36 +169,37 @@
     }
 
     .countdown span {
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: bold;
     }
 
     .section {
       max-width: 1200px;
-      margin: 5rem auto;
+      margin: 6rem auto;
       padding: 0 2rem;
     }
 
     .section h2 {
-      font-size: 2.8rem;
+      font-size: 3rem;
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       animation: fadeIn 1s ease-in;
     }
 
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
     }
 
     .feature-card {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 2.5rem;
-      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 3rem;
+      border-radius: 20px;
       text-align: center;
       transition: transform 0.3s, box-shadow 0.3s;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       animation: slideInLeft 0.8s ease-out;
     }
 
@@ -189,47 +212,48 @@
     }
 
     .feature-card:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      transform: translateY(-20px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     .feature-card h3 {
-      font-size: 1.8rem;
-      margin-bottom: 1.2rem;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .form-container {
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 2.5rem;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.2);
+      padding: 3rem;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
     }
 
     .form-container input {
       width: 100%;
-      padding: 1rem;
-      margin-bottom: 1.2rem;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
       border: none;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      transition: box-shadow 0.3s;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      transition: box-shadow 0.3s, transform 0.2s;
     }
 
     .form-container input:focus {
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+      transform: scale(1.02);
       outline: none;
     }
 
     .form-container button {
       width: 100%;
-      padding: 1rem;
+      padding: 1.2rem;
       background: #22c55e;
       color: #ffffff;
       border: none;
-      border-radius: 8px;
-      font-size: 1.1rem;
+      border-radius: 10px;
+      font-size: 1.2rem;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.3s, transform 0.2s;
@@ -244,20 +268,45 @@
       margin-top: 1.5rem;
       text-align: center;
       font-weight: 500;
+      font-size: 1.2rem;
       animation: fadeIn 0.5s ease-in;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+      margin: 5rem auto;
+      max-width: 1200px;
+      padding: 0 2rem;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .stat-card span {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #93c5fd;
     }
 
     .prizes {
       text-align: center;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       animation: fadeIn 1s ease-in;
     }
 
     footer {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 2rem;
       text-align: center;
-      margin-top: 5rem;
+      margin-top: 6rem;
       animation: fadeIn 1s ease-in;
     }
 
@@ -271,18 +320,18 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
       animation: fadeIn 0.5s ease-in;
     }
 
     .modal-content {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.2);
       margin: 5% auto;
-      padding: 2.5rem;
-      border-radius: 15px;
+      padding: 3rem;
+      border-radius: 20px;
       width: 90%;
-      max-width: 700px;
-      backdrop-filter: blur(10px);
+      max-width: 800px;
+      backdrop-filter: blur(12px);
       animation: zoomInModal 0.5s ease-out;
     }
 
@@ -294,7 +343,7 @@
     .close {
       color: #ccc;
       float: right;
-      font-size: 30px;
+      font-size: 35px;
       font-weight: bold;
       cursor: pointer;
       transition: color 0.3s;
@@ -306,24 +355,24 @@
     }
 
     .modal h2 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
       text-align: center;
     }
 
     .modal h3 {
-      font-size: 1.4rem;
-      margin: 1rem 0 0.5rem;
+      font-size: 1.6rem;
+      margin: 1.5rem 0 0.8rem;
       color: #93c5fd;
     }
 
     .modal input {
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
 
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 2.8rem;
+        font-size: 3rem;
       }
 
       .countdown {
@@ -332,7 +381,7 @@
       }
 
       .countdown span {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
 
       nav ul {
@@ -342,27 +391,34 @@
 
       .modal-content {
         width: 95%;
-        padding: 1.5rem;
+        padding: 2rem;
+      }
+
+      .section h2 {
+        font-size: 2.2rem;
       }
     }
   </style>
 </head>
 <body>
+  <div id="particles-js"></div>
   <header>
     <nav>
       <h1>ShubhAarambh</h1>
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#features">Features</a></li>
+        <li><a href="#stats">Stats</a></li>
         <li><a href="#register">Register</a></li>
         <li><a href="#faq">FAQ</a></li>
+        <li><button class="theme-toggle" id="theme-toggle">🌙</button></li>
       </ul>
     </nav>
   </header>
 
   <section id="home" class="hero">
     <h1>ShubhAarambh Hackathon 2025</h1>
-    <p>Join innovators to build solutions for real-world problems and win exciting prizes!</p>
+    <p>Join innovators to build groundbreaking solutions for real-world problems and win exciting prizes!</p>
     <div class="countdown" id="countdown">
       <div><span id="days">0</span>Days</div>
       <div><span id="hours">0</span>Hours</div>
@@ -376,15 +432,33 @@
     <div class="features">
       <div class="feature-card">
         <h3>Innovate & Create</h3>
-        <p>Build solutions for real-world problems.</p>
+        <p>Build cutting-edge solutions for real-world challenges.</p>
       </div>
       <div class="feature-card">
         <h3>Learn & Grow</h3>
-        <p>Sharpen skills with expert mentorship.</p>
+        <p>Sharpen your skills with expert mentorship.</p>
       </div>
       <div class="feature-card">
         <h3>Network & Collaborate</h3>
-        <p>Connect with innovators and form teams.</p>
+        <p>Connect with innovators and form dynamic teams.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="stats" class="section stats">
+    <h2>Event Stats</h2>
+    <div class="stats">
+      <div class="stat-card">
+        <span id="teams-registered">0</span>
+        <p>Teams Registered</p>
+      </div>
+      <div class="stat-card">
+        <span id="participants">0</span>
+        <p>Participants</p>
+      </div>
+      <div class="stat-card">
+        <span id="prizes-total">0</span>
+        <p>Total Prize Pool (₹)</p>
       </div>
     </div>
   </section>
@@ -392,7 +466,7 @@
   <section id="register" class="section">
     <h2>Register Now</h2>
     <div class="form-container" style="text-align: center;">
-      <button id="open-register-modal" style="width: auto; padding: 1rem 3rem;">Open Registration Form (₹69/team)</button>
+      <button id="open-register-modal" style="width: auto; padding: 1.2rem 4rem;">Open Registration Form (₹69/team)</button>
     </div>
   </section>
 
@@ -582,44 +656,7 @@
         }
 
         console.log('Registration successful:', data);
-
-        // Send AJAX request to serverless function for email
-        let rawResponse = '';
-        let emailData = { success: false, error: 'No response from email server' };
-        try {
-          const emailResponse = await fetch('/api/send-email', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ team_name: teamName, members }),
-          });
-
-          rawResponse = await emailResponse.text();
-          console.log('Raw email response:', rawResponse);
-
-          if (!emailResponse.ok) {
-            console.error('Email server returned non-OK status:', emailResponse.status, rawResponse);
-            throw new Error(`HTTP error ${emailResponse.status}: ${rawResponse || 'Unknown error'}`);
-          }
-
-          try {
-            emailData = JSON.parse(rawResponse);
-          } catch (jsonError) {
-            console.error('Failed to parse email response as JSON:', jsonError, 'Raw response:', rawResponse);
-            throw new Error('Invalid email server response');
-          }
-
-          if (!emailData.success) {
-            console.error('Email sending failed:', emailData.error);
-            throw new Error(emailData.error || 'Failed to send emails');
-          }
-        } catch (emailError) {
-          console.error('Email request failed:', emailError);
-          responseElement.textContent = `Registration saved, but email sending failed: ${emailError.message}`;
-          responseElement.style.color = '#ef4444';
-          return;
-        }
-
-        responseElement.textContent = 'Registration successful! Confirmation emails sent to all members.';
+        responseElement.textContent = 'Registration successful! Please check your email for confirmation.';
         responseElement.style.color = '#22c55e';
         document.getElementById('team-register-form').reset();
         setTimeout(() => {
@@ -654,7 +691,7 @@
         }
 
         console.log('Question submitted:', data);
-        responseElement.textContent = 'Thank you for your question!';
+        responseElement.textContent = 'Thank you for your question! We’ll get back to you soon.';
         responseElement.style.color = '#22c55e';
         document.getElementById('question').value = '';
       } catch (error) {
@@ -673,6 +710,68 @@
         });
       });
     });
+
+    // Particles.js Initialization
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: '#93c5fd' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: '#93c5fd', opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 2, direction: 'none', random: true, out_mode: 'out' }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' }, resize: true },
+        modes: { grab: { distance: 200, line_linked: { opacity: 1 } }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+      if (document.body.classList.contains('dark-theme')) {
+        document.body.style.background = 'linear-gradient(135deg, #2a2a2a, #4b5563)';
+        themeToggle.textContent = '☀️';
+      } else {
+        document.body.style.background = 'linear-gradient(135deg, #1e3a8a, #3b82f6)';
+        themeToggle.textContent = '🌙';
+      }
+    });
+
+    // Stats Counter Animation
+    function animateValue(id, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        document.getElementById(id).textContent = Math.floor(progress * (end - start) + start);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    // Fetch and animate stats
+    async function updateStats() {
+      try {
+        const { data, error } = await supabaseClient.from('registrations').select('members');
+        if (error) throw error;
+        const teams = data.length;
+        const participants = data.reduce((sum, team) => sum + (team.members ? team.members.length : 0), 0);
+        animateValue('teams-registered', 0, teams, 2000);
+        animateValue('participants', 0, participants, 2000);
+        animateValue('prizes-total', 0, 873, 2000); // Total prize pool: ₹499 + ₹249 + ₹125
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+      }
+    }
+    updateStats();
   </script>
 </body>
 </html>
