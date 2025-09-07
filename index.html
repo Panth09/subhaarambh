@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShubhAarambh Hackathon</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * {
       margin: 0;
@@ -289,6 +290,13 @@
   </footer>
 
   <script>
+    // Initialize Supabase client
+    const { createClient } = supabase;
+    const supabaseClient = createClient(
+      'https://tgpsnipxdduxljybwjah.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHNuaXB4ZGR1eGxqeWJ3amFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNTEzODEsImV4cCI6MjA3MjgyNzM4MX0.JGuybJNIWsj8pgTc3H-idY_fjhASWFfToZgkr0KeCB4'
+    );
+
     // Countdown Timer
     const deadline = new Date("2025-10-03T23:59:00");
     const countdownElement = document.getElementById('countdown');
@@ -298,7 +306,7 @@
       const diff = deadline - now;
 
       if (diff <= 0) {
-        countdownElement.innerHTML = '<p class="text-red-500">Hackathon has started!</p>';
+        countdownElement.innerHTML = '<p style="color: #ef4444;">Hackathon has started!</p>';
         return;
       }
 
@@ -316,35 +324,59 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Form Handling (Placeholder for Supabase or backend integration)
+    // Register Form Submission
     document.getElementById('register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value;
       const responseElement = document.getElementById('register-response');
 
+      // Basic email validation
+      if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        responseElement.textContent = 'Please enter a valid email address.';
+        responseElement.style.color = '#ef4444';
+        return;
+      }
+
       try {
-        // Replace with actual Supabase or backend API call
-        responseElement.textContent = 'Registration successful!';
+        const { data, error } = await supabaseClient
+          .from('registrations')
+          .insert([{ email }]);
+
+        if (error) throw error;
+
+        responseElement.textContent = 'Registration successful! Check your email for payment details.';
         responseElement.style.color = '#22c55e';
         document.getElementById('email').value = '';
       } catch (error) {
-        responseElement.textContent = 'Registration failed. Please try again.';
+        responseElement.textContent = error.message || 'Registration failed. Please try again.';
         responseElement.style.color = '#ef4444';
       }
     });
 
+    // Question Form Submission
     document.getElementById('question-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const question = document.getElementById('question').value;
       const responseElement = document.getElementById('question-response');
 
+      if (!question.trim()) {
+        responseElement.textContent = 'Please enter a valid question.';
+        responseElement.style.color = '#ef4444';
+        return;
+      }
+
       try {
-        // Replace with actual Supabase or backend API call
+        const { data, error } = await supabaseClient
+          .from('questions')
+          .insert([{ question }]);
+
+        if (error) throw error;
+
         responseElement.textContent = 'Thank you for your question!';
         responseElement.style.color = '#22c55e';
         document.getElementById('question').value = '';
       } catch (error) {
-        responseElement.textContent = 'Failed to submit question. Please try again.';
+        responseElement.textContent = error.message || 'Failed to submit question. Please try again.';
         responseElement.style.color = '#ef4444';
       }
     });
