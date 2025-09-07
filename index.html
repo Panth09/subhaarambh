@@ -589,6 +589,28 @@
     .form-group textarea::placeholder {
       color: var(--text-secondary);
     }
+    .qr-code {
+      max-width: 250px;
+      margin: 1.5rem auto;
+      border: 5px solid var(--glow-color);
+      border-radius: 10px;
+      padding: 10px;
+      background: var(--text-primary);
+    }
+    .file-upload-label {
+      display: inline-block;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+    .file-upload-label:hover {
+      border-color: var(--glow-color);
+      color: var(--text-primary);
+    }
     footer {
       background: rgba(0, 0, 0, 0.9);
       padding: 3rem 2rem;
@@ -982,11 +1004,37 @@
         </div>
        
         <button type="submit" id="register-submit" class="cta-button" style="width: 100%; margin-top: 1rem;">
-          Complete Registration 🚀
+          Proceed to Payment 🚀
         </button>
       </form>
      
       <div id="team-register-response" class="response-message"></div>
+    </div>
+  </div>
+  <!-- Payment QR Code Modal -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content" style="max-width: 500px; text-align: center;">
+      <span class="close" id="paymentClose">&times;</span>
+      <h2 style="color: var(--glow-color); margin-bottom: 1rem;">Complete Your Payment</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 1rem;">Scan the QR code below to pay ₹69 via any UPI app.</p>
+      <img src="YOUR_QR_CODE_IMAGE_URL" alt="UPI QR Code" class="qr-code">
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">After making the payment, click below to upload your payment proof.</p>
+      <button id="proceed-to-upload" class="cta-button" style="width: 100%;">Upload Payment Proof</button>
+      <div id="payment-response" class="response-message" style="margin-top: 1rem;"></div>
+    </div>
+  </div>
+  <!-- Payment Proof Upload Modal -->
+  <div id="uploadModal" class="modal">
+    <div class="modal-content" style="max-width: 500px; text-align: center;">
+      <span class="close" id="uploadClose">&times;</span>
+      <h2 style="color: var(--glow-color); margin-bottom: 1rem;">Upload Payment Proof</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Please upload a screenshot of your payment confirmation.</p>
+      <div class="form-group">
+        <label for="payment-proof" class="file-upload-label">Choose Image</label>
+        <input type="file" id="payment-proof" accept="image/*" style="display: none;" required>
+      </div>
+      <button id="upload-proof" class="cta-button" style="width: 100%;">Submit Payment Proof</button>
+      <div id="upload-response" class="response-message" style="margin-top: 1rem;"></div>
     </div>
   </div>
   <!-- Join Now Popup Modal -->
@@ -1065,13 +1113,22 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
     // Modal functionality
-    const modal = document.getElementById('registrationModal');
-    const openBtn = document.getElementById('open-register-modal');
-    const closeSpan = document.querySelector('.close');
-    openBtn.onclick = () => modal.style.display = 'block';
-    closeSpan.onclick = () => modal.style.display = 'none';
+    const registerModal = document.getElementById('registrationModal');
+    const paymentModal = document.getElementById('paymentModal');
+    const uploadModal = document.getElementById('uploadModal');
+    const openRegisterBtn = document.getElementById('open-register-modal');
+    const registerClose = document.querySelector('#registrationModal .close');
+    const paymentClose = document.getElementById('paymentClose');
+    const uploadClose = document.getElementById('uploadClose');
+    let registrationData = null;
+    openRegisterBtn.onclick = () => registerModal.style.display = 'block';
+    registerClose.onclick = () => registerModal.style.display = 'none';
+    paymentClose.onclick = () => paymentModal.style.display = 'none';
+    uploadClose.onclick = () => uploadModal.style.display = 'none';
     window.onclick = (event) => {
-      if (event.target === modal) modal.style.display = 'none';
+      if (event.target === registerModal) registerModal.style.display = 'none';
+      if (event.target === paymentModal) paymentModal.style.display = 'none';
+      if (event.target === uploadModal) uploadModal.style.display = 'none';
     };
     // Join Now Popup
     const popupModal = document.getElementById('joinNowPopup');
@@ -1083,13 +1140,15 @@
     popupClose.onclick = () => popupModal.style.display = 'none';
     popupRegisterBtn.onclick = () => {
       popupModal.style.display = 'none';
-      modal.style.display = 'block';
+      registerModal.style.display = 'block';
     };
     window.onclick = (event) => {
       if (event.target === popupModal) popupModal.style.display = 'none';
-      if (event.target === modal) modal.style.display = 'none';
+      if (event.target === registerModal) registerModal.style.display = 'none';
+      if (event.target === paymentModal) paymentModal.style.display = 'none';
+      if (event.target === uploadModal) uploadModal.style.display = 'none';
     };
-    // Form submissions
+    // Registration form submission
     document.getElementById('team-register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
      
@@ -1131,15 +1190,59 @@
         responseElement.style.color = '#ef4444';
         return;
       }
+      registrationData = {
+        team_name: teamName || 'Solo Registrant',
+        members,
+        payment_status: 'pending',
+        payment_proof: null
+      };
+      submitButton.disabled = true;
+      submitButton.textContent = 'Proceeding to Payment...';
+      registerModal.style.display = 'none';
+      paymentModal.style.display = 'block';
+      submitButton.disabled = false;
+      submitButton.textContent = 'Proceed to Payment 🚀';
+    });
+    // Proceed to upload modal
+    document.getElementById('proceed-to-upload').addEventListener('click', () => {
+      paymentModal.style.display = 'none';
+      uploadModal.style.display = 'block';
+    });
+    // Payment proof upload
+    document.getElementById('upload-proof').addEventListener('click', async () => {
+      const uploadInput = document.getElementById('payment-proof');
+      const uploadResponseElement = document.getElementById('upload-response');
+      const uploadButton = document.getElementById('upload-proof');
+      if (!uploadInput.files || uploadInput.files.length === 0) {
+        uploadResponseElement.textContent = '❌ Please select an image file!';
+        uploadResponseElement.style.color = '#ef4444';
+        return;
+      }
+      const file = uploadInput.files[0];
+      if (!file.type.startsWith('image/')) {
+        uploadResponseElement.textContent = '❌ Please upload a valid image file!';
+        uploadResponseElement.style.color = '#ef4444';
+        return;
+      }
       try {
-        submitButton.disabled = true;
-        submitButton.textContent = 'Registering...';
-       
-        const { data, error } = await supabaseClient
-          .from('registrations')
-          .insert([{ team_name: teamName || 'Solo Registrant', members }]);
+        uploadButton.disabled = true;
+        uploadButton.textContent = 'Uploading...';
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+        const { data, error } = await supabaseClient.storage
+          .from('payment-proofs')
+          .upload(fileName, file);
         if (error) throw error;
-        responseElement.innerHTML = `
+        const { publicURL } = supabaseClient.storage
+          .from('payment-proofs')
+          .getPublicUrl(fileName);
+        registrationData.payment_proof = publicURL;
+        registrationData.payment_status = 'completed';
+        const { error: dbError } = await supabaseClient
+          .from('registrations')
+          .insert([registrationData]);
+        if (dbError) throw dbError;
+        uploadResponseElement.innerHTML = `
           <div style="color: #22c55e; text-align: center;">
             🎉 Registration Successful! 🎉<br>
             <strong>Welcome to ShubhAarambh 2025!</strong><br>
@@ -1149,21 +1252,27 @@
             🚀 Get ready to innovate!
           </div>
         `;
-       
         document.getElementById('team-register-form').reset();
+        uploadInput.value = '';
         setTimeout(() => {
-          modal.style.display = 'none';
-          responseElement.innerHTML = '';
-          submitButton.disabled = false;
-          submitButton.textContent = 'Complete Registration 🚀';
+          uploadModal.style.display = 'none';
+          uploadResponseElement.innerHTML = '';
+          registrationData = null;
+          uploadButton.disabled = false;
+          uploadButton.textContent = 'Submit Payment Proof';
         }, 5000);
       } catch (error) {
-        responseElement.textContent = `❌ Registration failed: ${error.message}`;
-        responseElement.style.color = '#ef4444';
-        submitButton.disabled = false;
-        submitButton.textContent = 'Complete Registration 🚀';
+        uploadResponseElement.textContent = `❌ Failed to upload proof: ${error.message}`;
+        uploadResponseElement.style.color = '#ef4444';
+        registrationData.payment_status = 'failed';
+        await supabaseClient
+          .from('registrations')
+          .insert([registrationData]);
+        uploadButton.disabled = false;
+        uploadButton.textContent = 'Submit Payment Proof';
       }
     });
+    // Question form submission
     document.getElementById('question-form').addEventListener('submit', async (e) => {
       e.preventDefault();
      
