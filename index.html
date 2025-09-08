@@ -364,6 +364,21 @@
       line-height: 1.5;
       font-size: 0.95rem;
     }
+    .team-member .social-links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .team-member .social-links a {
+      color: var(--glow-color);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+    .team-member .social-links a:hover {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 10px var(--glow-color));
+    }
     .prizes-section {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -727,38 +742,51 @@
     <div class="team-portfolio">
       <div class="glass-card team-member">
         <div class="team-member-avatar">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Team Lead">
+          <img src="p-1" alt="Panth Maheshwari">
         </div>
-        <h3>Alex Chen</h3>
-        <div class="role">Lead Organizer</div>
+        <h3>Panth Maheshwari</h3>
+        <div class="role">Community Builder</div>
         <p>Full-stack developer and hackathon veteran with 5+ years of experience. Passionate about mentoring young developers and building innovative communities.</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/panthmaheshwari/" target="_blank">🔗 LinkedIn</a>
+          <a href="https://www.instagram.com/justtt_panth._" target="_blank">📸 Instagram</a>
+        </div>
       </div>
-     
       <div class="glass-card team-member">
         <div class="team-member-avatar">
-          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" alt="Tech Lead">
+          <img src="p-2" alt="Dipak Raval">
         </div>
-        <h3>Priya Sharma</h3>
-        <div class="role">Technical Director</div>
+        <h3>Dipak Raval</h3>
+        <div class="role">Community Builder</div>
         <p>AI/ML engineer and tech evangelist. Specializes in emerging technologies and has mentored 100+ students in their coding journey.</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/rdvraval19/" target="_blank">🔗 LinkedIn</a>
+          <a href="https://www.instagram.com/rdvedits19/" target="_blank">📸 Instagram</a>
+        </div>
       </div>
-     
       <div class="glass-card team-member">
         <div class="team-member-avatar">
-          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Community Manager">
+          <img src="p-3" alt="Simran Patra">
         </div>
-        <h3>Rahul Patel</h3>
-        <div class="role">Community Manager</div>
-        <p>Social impact advocate and community builder. Focuses on creating inclusive tech spaces and connecting diverse talent across the ecosystem.</p>
-      </div>
-     
-      <div class="glass-card team-member">
-        <div class="team-member-avatar">
-          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Design Lead">
-        </div>
-        <h3>Sarah Kim</h3>
-        <div class="role">Experience Designer</div>
+        <h3>Simran Patra</h3>
+        <div class="role">Graphic Designer</div>
         <p>UX/UI designer with a passion for creating seamless digital experiences. Believes in design thinking as a tool for problem-solving.</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/simran-patra" target="_blank">🔗 LinkedIn</a>
+          <a href="https://www.instagram.com/simranpatra74" target="_blank">📸 Instagram</a>
+        </div>
+      </div>
+      <div class="glass-card team-member">
+        <div class="team-member-avatar">
+          <img src="p-4" alt="Prerana Som">
+        </div>
+        <h3>Prerana Som</h3>
+        <div class="role">Marketing Mafia</div>
+        <p>Social impact advocate and community builder. Focuses on creating inclusive tech spaces and connecting diverse talent across the ecosystem.</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/prerana-som-bm-gecg-dte" target="_blank">🔗 LinkedIn</a>
+          <a href="https://www.instagram.com/bohrtodeath" target="_blank">📸 Instagram</a>
+        </div>
       </div>
     </div>
   </section>
@@ -769,27 +797,22 @@
         <h3>🚀 Innovation Lab</h3>
         <p>Access cutting-edge tools, APIs, and platforms to bring your wildest ideas to life. From cloud credits to premium software licenses.</p>
       </div>
-     
       <div class="glass-card feature-card">
         <h3>🎓 Expert Mentorship</h3>
         <p>Learn from industry veterans, startup founders, and tech leaders who'll guide you through challenges and help refine your solutions.</p>
       </div>
-     
       <div class="glass-card feature-card">
         <h3>🌟 Career Opportunities</h3>
         <p>Showcase your skills to top recruiters, venture capitalists, and startup incubators. Many participants have landed dream jobs post-hackathon.</p>
       </div>
-     
       <div class="glass-card feature-card">
         <h3>🤝 Network & Collaborate</h3>
         <p>Connect with like-minded innovators, form lasting partnerships, and become part of a thriving tech community.</p>
       </div>
-     
       <div class="glass-card feature-card">
         <h3>🏆 Recognition & Rewards</h3>
         <p>Win cash prizes, certificates, exclusive swag, and get featured in tech publications. Top teams get accelerator program opportunities.</p>
       </div>
-     
       <div class="glass-card feature-card">
         <h3>💡 Real Impact</h3>
         <p>Work on challenges that matter. Your solutions could become the next big startup or be implemented by partner organizations.</p>
@@ -800,26 +823,22 @@
     <div class="prizes-section">
       <h2 class="section-title">🏆 Prize Pool</h2>
       <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">Compete for amazing prizes and recognition!</p>
-     
       <div class="prizes-grid">
         <div class="glass-card prize-card first">
           <div class="prize-amount">₹499</div>
           <h3>🥇 First Place</h3>
           <p>Winner takes all! Plus certificates, premium swag, and mentorship opportunities.</p>
         </div>
-       
         <div class="glass-card prize-card second">
           <div class="prize-amount">₹249</div>
           <h3>🥈 Second Place</h3>
           <p>Outstanding achievement! Certificates, swag, and networking opportunities.</p>
         </div>
-       
         <div class="glass-card prize-card third">
           <div class="prize-amount">₹125</div>
           <h3>🥉 Third Place</h3>
           <p>Excellent work! Certificates, swag, and recognition in our community.</p>
         </div>
-       
         <div class="glass-card prize-card">
           <div class="prize-amount" style="color: var(--glow-color);">🎁</div>
           <h3>Special Mentions</h3>
@@ -857,19 +876,16 @@
         <h3>Registration Deadline</h3>
         <p>Final day for team registration and onboarding. Late entries will be waitlisted based on availability.</p>
       </div>
-     
       <div class="glass-card schedule-item">
         <div class="schedule-date">October 4, 2025</div>
         <h3>Hackathon Kickoff</h3>
         <p>Opening ceremony, team formation, problem statements reveal, and mentorship sessions begin.</p>
       </div>
-     
       <div class="glass-card schedule-item">
         <div class="schedule-date">October 4-5, 2025</div>
         <h3>Development Sprint</h3>
         <p>24-hour intensive coding marathon with continuous mentorship, workshops, and networking breaks.</p>
       </div>
-     
       <div class="glass-card schedule-item">
         <div class="schedule-date">October 5, 2025</div>
         <h3>Demo Day & Awards</h3>
@@ -885,31 +901,26 @@
         <h3>Sustainable Tech</h3>
         <p>Build solutions for climate change, renewable energy, waste management, and environmental sustainability.</p>
       </div>
-     
       <div class="glass-card theme-card">
         <span class="icon">🏥</span>
         <h3>Health & Wellness</h3>
         <p>Create innovative healthcare solutions, mental health apps, fitness trackers, and medical assistance tools.</p>
       </div>
-     
       <div class="glass-card theme-card">
         <span class="icon">🤖</span>
         <h3>AI & Machine Learning</h3>
         <p>Develop intelligent systems, automation tools, predictive models, and next-gen AI applications.</p>
       </div>
-     
       <div class="glass-card theme-card">
         <span class="icon">💰</span>
         <h3>FinTech Revolution</h3>
         <p>Innovate in digital payments, blockchain, cryptocurrency, budgeting apps, and financial inclusion.</p>
       </div>
-     
       <div class="glass-card theme-card">
         <span class="icon">🎓</span>
         <h3>EdTech Solutions</h3>
         <p>Transform education with e-learning platforms, skill development tools, and educational games.</p>
       </div>
-     
       <div class="glass-card theme-card">
         <span class="icon">🌐</span>
         <h3>Social Impact</h3>
@@ -924,12 +935,10 @@
         <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"शुभ-Aarambh was a game-changer! Not only did I learn new technologies, but I also found my co-founder. Our project is now a thriving startup with seed funding!"</p>
         <div style="color: var(--glow-color); font-weight: 600;">- Anisha Patel, Winner 2024</div>
       </div>
-     
       <div class="glass-card">
         <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"The mentorship was incredible. Industry experts guided us through complex challenges, and the networking opportunities opened doors I never imagined."</p>
         <div style="color: var(--glow-color); font-weight: 600;">- Team CodeCrafters, 2nd Place 2023</div>
       </div>
-     
       <div class="glass-card">
         <p style="font-style: italic; font-size: 1.1rem; margin-bottom: 1rem;">"Amazing experience! Got recruited by a top tech company right after the hackathon. The skills and connections I gained were invaluable."</p>
         <div style="color: var(--glow-color); font-weight: 600;">- Rohan Singh, Participant 2024</div>
@@ -946,7 +955,6 @@
           <label for="team-name">Team Name (Optional for Solo)</label>
           <input type="text" id="team-name" placeholder="Enter your awesome team name (optional)">
         </div>
-       
         <div style="border-top: 1px solid var(--glass-border); margin: 2rem 0; padding-top: 1.5rem;">
           <h3 style="color: var(--glow-color); margin-bottom: 1rem;">👤 Primary Registrant</h3>
           <div class="form-group">
@@ -959,10 +967,8 @@
             <input type="email" name="email[]" placeholder="Email Address" required>
           </div>
         </div>
-       
         <div style="border-top: 1px solid var(--glass-border); margin: 2rem 0; padding-top: 1.5rem;">
           <h3 style="color: var(--glow-color); margin-bottom: 1rem;">👥 Additional Members (Optional)</h3>
-         
           <div style="margin-bottom: 1.5rem;">
             <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Member 2</h4>
             <div class="form-group">
@@ -975,7 +981,6 @@
               <input type="email" name="email[]" placeholder="Email Address">
             </div>
           </div>
-         
           <div style="margin-bottom: 1.5rem;">
             <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Member 3</h4>
             <div class="form-group">
@@ -988,7 +993,6 @@
               <input type="email" name="email[]" placeholder="Email Address">
             </div>
           </div>
-         
           <div>
             <h4 style="color: var(--text-secondary); margin-bottom: 0.5rem;">Member 4</h4>
             <div class="form-group">
@@ -1002,12 +1006,10 @@
             </div>
           </div>
         </div>
-       
         <button type="submit" id="register-submit" class="cta-button" style="width: 100%; margin-top: 1rem;">
           Proceed to Payment 🚀
         </button>
       </form>
-     
       <div id="team-register-response" class="response-message"></div>
     </div>
   </div>
@@ -1017,7 +1019,7 @@
       <span class="close" id="paymentClose">&times;</span>
       <h2 style="color: var(--glow-color); margin-bottom: 1rem;">Complete Your Payment</h2>
       <p style="color: var(--text-secondary); margin-bottom: 1rem;">Scan the QR code below to pay ₹69 via any UPI app.</p>
-      <img src="YOUR_QR_CODE_IMAGE_URL" alt="UPI QR Code" class="qr-code">
+      <img src="pay-1" alt="UPI QR Code" class="qr-code">
       <p style="color: var(--text-secondary); margin-bottom: 2rem;">After making the payment, click below to upload your payment proof.</p>
       <button id="proceed-to-upload" class="cta-button" style="width: 100%;">Upload Payment Proof</button>
       <div id="payment-response" class="response-message" style="margin-top: 1rem;"></div>
@@ -1157,7 +1159,6 @@
     // Registration form submission
     document.getElementById('team-register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-     
       const teamName = document.getElementById('team-name').value.trim();
       const names = document.querySelectorAll('input[name="name[]"]');
       const phones = document.querySelectorAll('input[name="phone[]"]');
@@ -1252,7 +1253,6 @@
           <div style="color: #22c55e; text-align: center;">
             🎉 Registration Successful! 🎉<br>
             <strong>Welcome to शुभ-Aarambh 2025!</strong><br>
-           
             <a href="https://chat.whatsapp.com/JhMjOqYrY7MDdxfqf3LRZE?mode=ems_copy_c" target="_blank" style="color: var(--glow-color); text-decoration: underline;">💬 Join our WhatsApp group for updates</a><br>
             🚀 Get ready to innovate!
           </div>
@@ -1280,7 +1280,6 @@
     // Question form submission
     document.getElementById('question-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-     
       const question = document.getElementById('question').value.trim();
       const responseElement = document.getElementById('question-response');
       const submitButton = document.getElementById('question-submit');
@@ -1292,7 +1291,6 @@
       try {
         submitButton.disabled = true;
         submitButton.textContent = 'Submitting...';
-       
         const { error } = await supabaseClient
           .from('questions')
           .insert([{ question }]);
@@ -1303,9 +1301,7 @@
             We'll get back to you soon via email or WhatsApp.
           </div>
         `;
-       
         document.getElementById('question').value = '';
-       
         setTimeout(() => {
           responseElement.innerHTML = '';
           submitButton.disabled = false;
@@ -1379,14 +1375,12 @@
     function animateValue(elementId, start, end, duration) {
       const element = document.getElementById(elementId);
       if (!element) return;
-     
       const startTimestamp = performance.now();
       const step = (timestamp) => {
         const elapsed = timestamp - startTimestamp;
         const progress = Math.min(elapsed / duration, 1);
         const value = Math.floor(progress * (end - start) + start);
         element.textContent = value;
-       
         if (progress < 1) {
           requestAnimationFrame(step);
         }
@@ -1399,12 +1393,10 @@
         const { data, error } = await supabaseClient
           .from('registrations')
           .select('members');
-       
         if (!error) {
           const teams = data.length;
           const participants = data.reduce((sum, team) =>
             sum + (team.members ? team.members.length : 0), 0);
-         
           animateValue('teams-registered', 0, teams, 2000);
           animateValue('participants', 0, participants, 2000);
         }
