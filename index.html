@@ -213,9 +213,16 @@
     .hero .organizer {
       font-size: 1.3rem;
       color: var(--glow-color);
-      margin-bottom: 2rem;
+      margin-bottom: 0.5rem;
       font-weight: 600;
       animation: fadeInUp 1s ease-out 0.3s both;
+    }
+    .hero .online-note {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-weight: 500;
+      animation: fadeInUp 1s ease-out 0.45s both;
     }
     .hero p {
       font-size: 1.4rem;
@@ -582,7 +589,7 @@
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 1px;
-      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 242, 254 Frank);
     }
     .cta-button.highlight {
       animation: highlightPulse 2s infinite;
@@ -815,6 +822,7 @@
   <section id="home" class="hero">
     <h1>शुभ-Aarambh 2025</h1>
     <p class="organizer">Organized by Innovation Junction & Team</p>
+    <p class="online-note">This Hackathon is completely online!</p>
     <p>Where Innovation Meets Opportunity - Build the Future, One Hack at a Time!</p>
     <div class="countdown" id="countdown">
       <div>
@@ -853,7 +861,7 @@
       </p>
     </div>
   </section>
-<section id="team" class="section animate-on-scroll">
+  <section id="team" class="section animate-on-scroll">
     <h2 class="section-title">Meet Our Team</h2>
     <div class="team-portfolio">
       <div class="glass-card team-member">
@@ -1112,7 +1120,7 @@
     </div>
   </div>
   <!-- Payment QR Code Modal -->
- <div id="paymentModal" class="modal">
+  <div id="paymentModal" class="modal">
     <div class="modal-content" style="max-width: 500px; text-align: center;">
       <span class="close" id="paymentClose">&times;</span>
       <h2 style="color: var(--glow-color); margin-bottom: 1rem;">Complete Your Payment</h2>
