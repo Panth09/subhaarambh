@@ -409,6 +409,22 @@
       border-radius: 50%;
       object-fit: cover;
       background: var(--dark-gradient);
+      display: block; /* Ensure no extra space */
+    }
+    .team-member-avatar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--dark-gradient);
+      opacity: 0.5;
+      z-index: 1;
+      transition: opacity 0.3s ease;
+    }
+    .team-member-avatar img.loaded::before {
+      opacity: 0;
     }
     .team-member h3 {
       font-family: 'Orbitron', monospace;
@@ -589,7 +605,7 @@
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 1px;
-      box-shadow: 0 10px 30px rgba(0, 242, 254 Frank);
+      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
     }
     .cta-button.highlight {
       animation: highlightPulse 2s infinite;
@@ -607,31 +623,6 @@
       0% { transform: scale(1); }
       50% { transform: scale(1.1); }
       100% { transform: scale(1); }
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      margin-bottom: 6rem;
-    }
-    .stat-card {
-      text-align: center;
-    }
-    .stat-number {
-      font-family: 'Orbitron', monospace;
-      font-size: 3rem;
-      font-weight: 900;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: block;
-      margin-bottom: 0.5rem;
-      animation: numberGlow 2s ease-in-out infinite;
-    }
-    @keyframes numberGlow {
-      0%, 100% { text-shadow: 0 0 10px var(--glow-color); }
-      50% { text-shadow: 0 0 20px var(--glow-color); }
     }
     .modal {
       display: none;
@@ -867,7 +858,7 @@
       <div class="glass-card team-member">
         <div class="team-member-avatar">
           <a href="https://ibb.co/6RkPSTVZ">
-            <img src="https://i.ibb.co/ccjF9ZMv/IMG-20250613-200844078-HDR-optimized.webp" alt="Panth Maheshwari" border="0" class="team-member-avatar" loading="lazy">
+            <img src="https://i.ibb.co/ccjF9ZMv/IMG-20250613-200844078-HDR-optimized.webp" alt="Panth Maheshwari" class="team-member-avatar" loading="lazy">
           </a>
         </div>
         <h3>Panth Maheshwari</h3>
@@ -881,7 +872,7 @@
       <div class="glass-card team-member">
         <div class="team-member-avatar">
           <a href="https://ibb.co/6cMxmnS9">
-            <img src="https://i.ibb.co/HLSsVFyw/p-2-optimized.webp" alt="Dipak Raval" border="0" class="team-member-avatar" loading="lazy">
+            <img src="https://i.ibb.co/HLSsVFyw/p-2-optimized.webp" alt="Dipak Raval" class="team-member-avatar" loading="lazy">
           </a>
         </div>
         <h3>Dipak Raval</h3>
@@ -895,7 +886,7 @@
       <div class="glass-card team-member">
         <div class="team-member-avatar">
           <a href="https://ibb.co/8DG0nP8w">
-            <img src="https://i.ibb.co/HDRVLGgy/p-4-optimized.webp" alt="Simran Patra" border="0" class="team-member-avatar" loading="lazy">
+            <img src="https://i.ibb.co/HDRVLGgy/p-4-optimized.webp" alt="Simran Patra" class="team-member-avatar" loading="lazy">
           </a>
         </div>
         <h3>Simran Patra</h3>
@@ -909,7 +900,7 @@
       <div class="glass-card team-member">
         <div class="team-member-avatar">
           <a href="https://ibb.co/DHsBxJv2">
-            <img src="https://i.ibb.co/mV1nLj2W/p-3-optimized.webp" alt="Prerana Som" border="0" class="team-member-avatar" loading="lazy">
+            <img src="https://i.ibb.co/mV1nLj2W/p-3-optimized.webp" alt="Prerana Som" class="team-member-avatar" loading="lazy">
           </a>
         </div>
         <h3>Prerana Som</h3>
@@ -979,21 +970,34 @@
       </div>
     </div>
   </section>
-  <section id="stats" class="section animate-on-scroll">
-    <h2 class="section-title">Event Stats</h2>
-    <div class="stats-grid">
-      <div class="glass-card stat-card">
-        <span class="stat-number" id="teams-registered">0</span>
-        <p>Teams Registered</p>
+  <section id="prize-pool" class="section animate-on-scroll">
+    <h2 class="section-title">Exciting Prize Pool</h2>
+    <div class="glass-card" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <p style="font-size: 1.4rem; color: var(--glow-color); margin-bottom: 1rem;">💰 Exciting News for Participants!</p>
+      <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+        The prize pool for our hackathon will grow as more participants register. The more registrations we have, the bigger the rewards for the winners — so spread the word and boost your chances of winning big! 🚀
+      </p>
+      <h3 style="font-family: 'Orbitron', monospace; color: var(--glow-color); margin-bottom: 1rem;">🏆 Current Prize Distribution:</h3>
+      <div class="prizes-grid">
+        <div class="glass-card prize-card first">
+          <div class="prize-amount">🥇 ₹621</div>
+          <h3>First Place</h3>
+          <p>Cash prize, certificates, premium swag, and mentorship opportunities.</p>
+        </div>
+        <div class="glass-card prize-card second">
+          <div class="prize-amount">🥈 ₹259</div>
+          <h3>Second Place</h3>
+          <p>Cash prize, certificates, swag, and networking opportunities.</p>
+        </div>
+        <div class="glass-card prize-card third">
+          <div class="prize-amount">🥉 ₹155</div>
+          <h3>Third Place</h3>
+          <p>Cash prize, certificates, swag, and recognition in our community.</p>
+        </div>
       </div>
-      <div class="glass-card stat-card">
-        <span class="stat-number" id="participants">0</span>
-        <p>Innovators Joining</p>
-      </div>
-      <div class="glass-card stat-card">
-        <span class="stat-number">24</span>
-        <p>Hours of Hacking</p>
-      </div>
+      <p style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 2rem;">
+        ✨ Don’t miss your chance to compete, showcase your skills, and win bigger rewards as the competition heats up!
+      </p>
     </div>
   </section>
   <section id="schedule" class="section animate-on-scroll">
@@ -1195,6 +1199,13 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          // Trigger image load for team section
+          const imgs = entry.target.querySelectorAll('.team-member-avatar img');
+          imgs.forEach(img => {
+            if (!img.srcset) {
+              img.srcset = img.src; // Use src as fallback
+            }
+          });
         }
       });
     }, observerOptions);
@@ -1479,42 +1490,16 @@
       document.body.classList.toggle('light-theme');
       this.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
     });
-    // Stats animation
-    function animateValue(elementId, start, end, duration) {
-      const element = document.getElementById(elementId);
-      if (!element) return;
-      const startTimestamp = performance.now();
-      const step = (timestamp) => {
-        const elapsed = timestamp - startTimestamp;
-        const progress = Math.min(elapsed / duration, 1);
-        const value = Math.floor(progress * (end - start) + start);
-        element.textContent = value;
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        }
-      };
-      requestAnimationFrame(step);
-    }
-    // Update stats from database
-    async function updateStats() {
-      try {
-        const { data, error } = await supabaseClient
-          .from('registrations')
-          .select('members');
-        if (!error) {
-          const teams = data.length;
-          const participants = data.reduce((sum, team) =>
-            sum + (team.members ? team.members.length : 0), 0);
-          animateValue('teams-registered', 0, teams, 2000);
-          animateValue('participants', 0, participants, 2000);
-        }
-      } catch (error) {
-        console.log('Stats update failed:', error);
-      }
-    }
-    // Initialize stats
-    updateStats();
-    setInterval(updateStats, 30000); // Update every 30 seconds
+    // Optimize team image loading
+    document.querySelectorAll('.team-member-avatar img').forEach(img => {
+      img.addEventListener('load', () => {
+        img.classList.add('loaded');
+      });
+      // Fallback in case image fails to load
+      img.addEventListener('error', () => {
+        img.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><rect width="150" height="150" fill="%230c0c0c"/></svg>';
+      });
+    });
   </script>
 </body>
 </html>
