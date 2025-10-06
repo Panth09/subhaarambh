@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>शुभ-Aarambh Hackathon 2025 - Organized by Innovation Junction</title>
+  <meta name="description" content="Join India's premier online hackathon. Build innovative solutions, win prizes, and network with industry experts.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" type="image/svg+xml">
-  <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" type="image/svg+xml">
-  <link rel="preload" href="https://i.ibb.co/pvqskCqj/pay-1-optimized.webp" as="image">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -39,14 +38,9 @@
       --dark-gradient: linear-gradient(135deg, #ffffff 0%, #f0f0f5 50%, #e0e5ee 100%);
       --text-primary: #0c0c0c;
       --text-secondary: #4b5563;
-      --glass-bg: rgba(0, 0, 0, 0.1);
-      --glass-border: rgba(0, 0, 0, 0.2);
+      --glass-bg: rgba(0, 0, 0, 0.05);
+      --glass-border: rgba(0, 0, 0, 0.15);
       --glow-color: #4facfe;
-    }
-    body.light-theme::before {
-      background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
     }
     body::before {
       content: '';
@@ -60,6 +54,11 @@
                   radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
       z-index: -2;
       pointer-events: none;
+    }
+    body.light-theme::before {
+      background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
     }
     #particles-js {
       position: fixed;
@@ -75,14 +74,14 @@
       z-index: 1000;
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--glass-border);
-      animation: slideInFromTop 0.8s ease-out;
+      animation: slideDown 0.5s ease-out;
     }
     body.light-theme header {
       background: rgba(255, 255, 255, 0.9);
     }
-    @keyframes slideInFromTop {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
     }
     nav {
       display: flex;
@@ -102,11 +101,6 @@
       text-transform: uppercase;
       letter-spacing: 3px;
       filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.5));
-      animation: textFlicker 4s infinite;
-    }
-    @keyframes textFlicker {
-      0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.5)); }
-      50% { filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.8)); }
     }
     nav ul {
       display: flex;
@@ -118,10 +112,10 @@
       color: var(--text-secondary);
       text-decoration: none;
       font-weight: 500;
-      position: relative;
       padding: 0.5rem 1rem;
       border-radius: 25px;
       transition: all 0.3s ease;
+      position: relative;
     }
     nav a::before {
       content: '';
@@ -139,13 +133,6 @@
     nav a:hover {
       color: var(--text-primary);
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
-      animation: navHoverPulse 0.5s ease-in-out;
-    }
-    @keyframes navHoverPulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
     }
     .theme-toggle {
       background: var(--glass-bg);
@@ -159,40 +146,28 @@
       backdrop-filter: blur(10px);
     }
     .theme-toggle:hover {
-      transform: rotate(360deg) scale(1.1);
+      transform: rotate(180deg) scale(1.1);
       box-shadow: 0 0 20px var(--glow-color);
-      animation: spinGlow 0.6s ease;
     }
-    @keyframes spinGlow {
-      0% { box-shadow: 0 0 10px var(--glow-color); }
-      50% { box-shadow: 0 0 20px var(--glow-color); }
-      100% { box-shadow: 0 0 10px var(--glow-color); }
+    .menu-toggle {
+      display: none;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
     }
     .hero {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 0 2rem;
+      padding: 8rem 2rem 4rem;
       position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="rgba(0,242,254,0.1)" points="0,300 1000,0 1000,400 0,700"/></svg>');
-      z-index: -1;
-      animation: backgroundFlow 20s linear infinite;
-    }
-    @keyframes backgroundFlow {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-1000px); }
     }
     .hero h1 {
       font-family: 'Orbitron', monospace;
@@ -203,10 +178,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: glowPulse 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.5));
+      animation: glow 3s ease-in-out infinite;
     }
-    @keyframes glowPulse {
+    @keyframes glow {
       0%, 100% { filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.5)); }
       50% { filter: drop-shadow(0 0 50px rgba(102, 126, 234, 0.8)); }
     }
@@ -215,14 +189,12 @@
       color: var(--glow-color);
       margin-bottom: 0.5rem;
       font-weight: 600;
-      animation: fadeInUp 1s ease-out 0.3s both;
     }
     .hero .online-note {
       font-size: 1.2rem;
       color: var(--text-secondary);
       margin-bottom: 2rem;
       font-weight: 500;
-      animation: fadeInUp 1s ease-out 0.45s both;
     }
     .hero p {
       font-size: 1.4rem;
@@ -230,11 +202,6 @@
       max-width: 800px;
       color: var(--text-secondary);
       line-height: 1.6;
-      animation: fadeInUp 1s ease-out 0.6s both;
-    }
-    @keyframes fadeInUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
     .countdown {
       display: grid;
@@ -246,21 +213,9 @@
       backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-      animation: countdownGlow 3s ease-in-out infinite;
-    }
-    @keyframes countdownGlow {
-      0%, 100% { box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); }
-      50% { box-shadow: 0 25px 50px rgba(0, 242, 254, 0.2); }
     }
     .countdown div {
       text-align: center;
-      position: relative;
-      animation: bounceIn 1s ease-in-out;
-    }
-    @keyframes bounceIn {
-      0% { transform: scale(0.5); opacity: 0; }
-      60% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(1); }
     }
     .countdown span {
       font-family: 'Orbitron', monospace;
@@ -282,7 +237,7 @@
     }
     .section {
       max-width: 1400px;
-      margin: 8rem auto;
+      margin: 6rem auto;
       padding: 0 2rem;
     }
     .section-title {
@@ -295,11 +250,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       position: relative;
-      animation: textSlideIn 1s ease-out;
-    }
-    @keyframes textSlideIn {
-      from { transform: translateX(-100px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
     }
     .section-title::after {
       content: '';
@@ -311,11 +261,6 @@
       height: 4px;
       background: var(--accent-gradient);
       border-radius: 2px;
-      animation: underlineExpand 1s ease-out;
-    }
-    @keyframes underlineExpand {
-      from { width: 0; }
-      to { width: 100px; }
     }
     .glass-card {
       background: var(--glass-bg);
@@ -344,12 +289,6 @@
       transform: translateY(-10px);
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
       border-color: var(--glow-color);
-      animation: cardPop 0.4s ease;
-    }
-    @keyframes cardPop {
-      0% { transform: scale(0.95); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
     }
     .features {
       display: grid;
@@ -361,11 +300,6 @@
       font-size: 1.8rem;
       margin-bottom: 1.5rem;
       color: var(--glow-color);
-      animation: textGlow 2s ease-in-out infinite;
-    }
-    @keyframes textGlow {
-      0%, 100% { text-shadow: 0 0 10px var(--glow-color); }
-      50% { text-shadow: 0 0 20px var(--glow-color); }
     }
     .feature-card p {
       color: var(--text-secondary);
@@ -379,7 +313,6 @@
     }
     .team-member {
       text-align: center;
-      position: relative;
     }
     .team-member-avatar {
       width: 150px;
@@ -396,12 +329,6 @@
     .team-member-avatar:hover {
       transform: scale(1.1);
       filter: drop-shadow(0 0 30px var(--glow-color));
-      animation: avatarSpin 0.6s ease;
-    }
-    @keyframes avatarSpin {
-      0% { transform: rotate(0deg) scale(1); }
-      50% { transform: rotate(10deg) scale(1.1); }
-      100% { transform: rotate(0deg) scale(1.1); }
     }
     .team-member-avatar img {
       width: 100%;
@@ -409,22 +336,6 @@
       border-radius: 50%;
       object-fit: cover;
       background: var(--dark-gradient);
-      display: block;
-    }
-    .team-member-avatar::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--dark-gradient);
-      opacity: 0.5;
-      z-index: 1;
-      transition: opacity 0.3s ease;
-    }
-    .team-member-avatar img.loaded::before {
-      opacity: 0;
     }
     .team-member h3 {
       font-family: 'Orbitron', monospace;
@@ -454,16 +365,11 @@
       color: var(--glow-color);
       font-size: 1.2rem;
       transition: all 0.3s ease;
+      text-decoration: none;
     }
     .team-member .social-links a:hover {
       transform: scale(1.2);
       filter: drop-shadow(0 0 10px var(--glow-color));
-      animation: linkPulse 0.5s ease-in-out;
-    }
-    @keyframes linkPulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1.2); }
     }
     .prizes-section {
       background: var(--glass-bg);
@@ -473,23 +379,6 @@
       margin: 6rem auto;
       text-align: center;
       backdrop-filter: blur(20px);
-      position: relative;
-      overflow: hidden;
-    }
-    .prizes-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
-      z-index: -1;
-      animation: prizeGlow 5s ease-in-out infinite;
-    }
-    @keyframes prizeGlow {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.7; }
     }
     .prizes-grid {
       display: grid;
@@ -503,29 +392,13 @@
       border-radius: 20px;
       padding: 2rem;
       transition: all 0.4s ease;
-      position: relative;
     }
-    .prize-card.first {
-      border-color: #ffd700;
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), var(--glass-bg));
-    }
-    .prize-card.second {
-      border-color: #c0c0c0;
-      background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), var(--glass-bg));
-    }
-    .prize-card.third {
-      border-color: #cd7f32;
-      background: linear-gradient(135deg, rgba(205, 127, 50, 0.1), var(--glass-bg));
-    }
+    .prize-card.first { border-color: #ffd700; }
+    .prize-card.second { border-color: #c0c0c0; }
+    .prize-card.third { border-color: #cd7f32; }
     .prize-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      animation: prizePop 0.4s ease;
-    }
-    @keyframes prizePop {
-      0% { transform: scale(0.95); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
     }
     .prize-amount {
       font-family: 'Orbitron', monospace;
@@ -554,11 +427,6 @@
       height: 100%;
       background: var(--accent-gradient);
       border-radius: 2px;
-      animation: timelineGlow 2s ease-in-out infinite;
-    }
-    @keyframes timelineGlow {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
     }
     .schedule-date {
       font-family: 'Orbitron', monospace;
@@ -573,17 +441,11 @@
     }
     .theme-card {
       text-align: center;
-      position: relative;
     }
     .theme-card .icon {
       font-size: 3rem;
       margin-bottom: 1rem;
       display: block;
-      animation: iconBounce 2s ease-in-out infinite;
-    }
-    @keyframes iconBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
     }
     .theme-card h3 {
       font-family: 'Orbitron', monospace;
@@ -607,22 +469,9 @@
       letter-spacing: 1px;
       box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
     }
-    .cta-button.highlight {
-      animation: highlightPulse 2s infinite;
-    }
-    @keyframes highlightPulse {
-      0%, 100% { box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3); transform: scale(1); }
-      50% { box-shadow: 0 20px 50px rgba(0, 242, 254, 0.8); transform: scale(1.05); }
-    }
     .cta-button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(0, 242, 254, 0.4);
-      animation: buttonPop 0.3s ease;
-    }
-    @keyframes buttonPop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+      box-shadow: 0 20px 40px rgba(0, 242, 254, 0.5);
     }
     .modal {
       display: none;
@@ -635,7 +484,6 @@
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(10px);
-      animation: fadeIn 0.3s ease;
     }
     .modal-content {
       background: var(--glass-bg);
@@ -647,11 +495,8 @@
       backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       position: relative;
-      animation: slideInFromBottom 0.4s ease-out;
-    }
-    @keyframes slideInFromBottom {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      max-height: 90vh;
+      overflow-y: auto;
     }
     .close {
       position: absolute;
@@ -665,11 +510,6 @@
     }
     .close:hover {
       color: var(--text-primary);
-      animation: closeSpin 0.3s ease;
-    }
-    @keyframes closeSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(180deg); }
     }
     .form-group {
       margin-bottom: 1.5rem;
@@ -697,49 +537,16 @@
       outline: none;
       border-color: var(--glow-color);
       box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
-      animation: inputGlow 0.5s ease-in-out;
-    }
-    @keyframes inputGlow {
-      0% { box-shadow: 0 0 10px rgba(0, 242, 254, 0.2); }
-      50% { box-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
-      100% { box-shadow: 0 0 10px rgba(0, 242, 254, 0.2); }
     }
     .form-group input::placeholder,
     .form-group textarea::placeholder {
       color: var(--text-secondary);
     }
-    .qr-code {
-      max-width: 250px;
-      margin: 1.5rem auto;
-      border: 5px solid var(--glow-color);
-      border-radius: 10px;
-      padding: 10px;
-      background: var(--text-primary);
-      animation: qrPulse 2s ease-in-out infinite;
-    }
-    @keyframes qrPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    .file-upload-label {
-      display: inline-block;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
+    .response-message {
+      margin-top: 1rem;
       padding: 1rem;
       border-radius: 12px;
-      cursor: pointer;
-      color: var(--text-secondary);
-      transition: all 0.3s ease;
-    }
-    .file-upload-label:hover {
-      border-color: var(--glow-color);
-      color: var(--text-primary);
-      animation: fileLabelGlow 0.5s ease;
-    }
-    @keyframes fileLabelGlow {
-      0% { box-shadow: 0 0 5px var(--glow-color); }
-      50% { box-shadow: 0 0 15px var(--glow-color); }
-      100% { box-shadow: 0 0 5px var(--glow-color); }
+      text-align: center;
     }
     footer {
       background: rgba(0, 0, 0, 0.9);
@@ -751,13 +558,33 @@
     body.light-theme footer {
       background: rgba(255, 255, 255, 0.9);
     }
-    /* Responsive Design */
     @media (max-width: 768px) {
       nav h1 {
         font-size: 1.8rem;
+        letter-spacing: 2px;
+      }
+      .menu-toggle {
+        display: block;
       }
       nav ul {
-        display: none;
+        position: fixed;
+        top: 80px;
+        right: -100%;
+        background: rgba(0, 0, 0, 0.95);
+        width: 250px;
+        height: calc(100vh - 80px);
+        padding: 2rem;
+        transition: right 0.3s ease;
+        backdrop-filter: blur(20px);
+        border-left: 1px solid var(--glass-border);
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul.active {
+        right: 0;
+      }
+      body.light-theme nav ul {
+        background: rgba(255, 255, 255, 0.95);
       }
       .countdown {
         grid-template-columns: repeat(2, 1fr);
@@ -767,8 +594,8 @@
       .countdown span {
         font-size: 2rem;
       }
-      .section {
-        margin: 5rem auto;
+      .features {
+        grid-template-columns: 1fr;
       }
       .modal-content {
         width: 95%;
@@ -776,17 +603,12 @@
         margin: 5% auto;
       }
     }
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .animate-on-scroll {
+    .animate-fade {
       opacity: 0;
       transform: translateY(30px);
       transition: all 0.6s ease;
     }
-    .animate-on-scroll.visible {
+    .animate-fade.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -794,10 +616,12 @@
 </head>
 <body>
   <div id="particles-js"></div>
+  
   <header>
     <nav>
       <h1>शुभ-Aarambh</h1>
-      <ul>
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <ul id="nav-menu">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#team">Team</a></li>
@@ -809,41 +633,32 @@
       </ul>
     </nav>
   </header>
+
   <section id="home" class="hero">
     <h1>शुभ-Aarambh 2025</h1>
     <p class="organizer">Organized by Innovation Junction & Team</p>
     <p class="online-note">This Hackathon is completely online!</p>
     <p>Where Innovation Meets Opportunity - Build the Future, One Hack at a Time!</p>
     <div class="countdown" id="countdown">
-      <div>
-        <span id="days">0</span>
-        <small>Days</small>
-      </div>
-      <div>
-        <span id="hours">0</span>
-        <small>Hours</small>
-      </div>
-      <div>
-        <span id="minutes">0</span>
-        <small>Minutes</small>
-      </div>
-      <div>
-        <span id="seconds">0</span>
-        <small>Seconds</small>
-      </div>
+      <div><span id="days">0</span><small>Days</small></div>
+      <div><span id="hours">0</span><small>Hours</small></div>
+      <div><span id="minutes">0</span><small>Minutes</small></div>
+      <div><span id="seconds">0</span><small>Seconds</small></div>
     </div>
   </section>
-  <section id="register" class="section animate-on-scroll">
+
+  <section id="register" class="section animate-fade">
     <h2 class="section-title">Register Now</h2>
     <div style="text-align: center;">
       <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
         <h3 style="margin-bottom: 1.5rem; color: var(--glow-color);">Secure Your Spot!</h3>
-        <p style="margin-bottom: 2rem; color: var(--text-secondary);">First come, first served! Slots fill fast. Join our WhatsApp group for updates: <a href="https://chat.whatsapp.com/HS4NnLKSlk67v6ORM0qAKj" target="_blank" style="color: var(--glow-color); text-decoration: underline;">💬 Join Now</a></p>
-        <button id="open-register-modal" class="cta-button">Register Now 🚀</button>
+        <p style="margin-bottom: 2rem; color: var(--text-secondary);">First come, first served! Slots fill fast. Join our WhatsApp group for updates: <a href="https://chat.whatsapp.com/HS4NnLKSlk67v6ORM0qAKj" target="_blank" style="color: var(--glow-color); text-decoration: underline;">Join Now</a></p>
+        <button id="open-register-modal" class="cta-button">Register Now</button>
       </div>
     </div>
   </section>
-  <section id="about" class="section animate-on-scroll">
+
+  <section id="about" class="section animate-fade">
     <h2 class="section-title">About Innovation Junction</h2>
     <div class="glass-card" style="text-align: center; max-width: 800px; margin: 0 auto;">
       <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-secondary);">
@@ -851,14 +666,13 @@
       </p>
     </div>
   </section>
-  <section id="team" class="section animate-on-scroll">
+
+  <section id="team" class="section animate-fade">
     <h2 class="section-title">Meet Our Team</h2>
     <div class="team-portfolio">
       <div class="glass-card team-member">
         <div class="team-member-avatar">
-          <a href="https://ibb.co/6RkPSTVZ">
-            <img src="https://i.ibb.co/ccjF9ZMv/IMG-20250613-200844078-HDR-optimized.webp" alt="Panth Maheshwari" class="team-member-avatar" loading="lazy">
-          </a>
+          <img src="https://i.ibb.co/ccjF9ZMv/IMG-20250613-200844078-HDR-optimized.webp" alt="Panth Maheshwari" loading="lazy">
         </div>
         <h3>Panth Maheshwari</h3>
         <div class="role">Community Builder</div>
@@ -870,9 +684,7 @@
       </div>
       <div class="glass-card team-member">
         <div class="team-member-avatar">
-          <a href="https://ibb.co/6cMxmnS9">
-            <img src="https://i.ibb.co/HLSsVFyw/p-2-optimized.webp" alt="Dipak Raval" class="team-member-avatar" loading="lazy">
-          </a>
+          <img src="https://i.ibb.co/HLSsVFyw/p-2-optimized.webp" alt="Dipak Raval" loading="lazy">
         </div>
         <h3>Dipak Raval</h3>
         <div class="role">Community Builder</div>
@@ -884,9 +696,7 @@
       </div>
       <div class="glass-card team-member">
         <div class="team-member-avatar">
-          <a href="https://ibb.co/8DG0nP8w">
-            <img src="https://i.ibb.co/HDRVLGgy/p-4-optimized.webp" alt="Simran Patra" class="team-member-avatar" loading="lazy">
-          </a>
+          <img src="https://i.ibb.co/HDRVLGgy/p-4-optimized.webp" alt="Simran Patra" loading="lazy">
         </div>
         <h3>Simran Patra</h3>
         <div class="role">Graphic Designer</div>
@@ -896,10 +706,10 @@
           <a href="https://www.instagram.com/simranpatra74" target="_blank">📸 Instagram</a>
         </div>
       </div>
-     
-      
+    </div>
   </section>
-  <section id="features" class="section animate-on-scroll">
+
+  <section id="features" class="section animate-fade">
     <h2 class="section-title">Why Join शुभ-Aarambh?</h2>
     <div class="features">
       <div class="glass-card feature-card">
@@ -928,24 +738,41 @@
       </div>
     </div>
   </section>
- <section id="prize-pool" class="section animate-on-scroll">
-  <h2 class="section-title">Exciting Prize Pool</h2>
-  <div class="glass-card" style="max-width: 800px; margin: 0 auto; text-align: center;">
-    <p style="font-size: 1.4rem; color: var(--glow-color); margin-bottom: 1rem;">💰 Funded by PEIRC & PDEU IIC</p>
-    <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
-      Prize pool details coming soon. Join our WhatsApp group for updates: <a href="https://chat.whatsapp.com/HS4NnLKSlk67v6ORM0qAKj" target="_blank" style="color: var(--glow-color); text-decoration: underline;">💬 Join Now</a>
-    </p>
-    <h3 style="font-family: 'Orbitron', monospace; color: var(--glow-color); margin-bottom: 1rem;">🏆 Prize Distribution:</h3>
-    <div class="prizes-grid">
-      <div class="glass-card prize-card first"><div class="prize-amount">🥇 1st</div><h3>First Place</h3><p>Cash prize, Canva rewards, certificates, premium swag, and mentorship opportunities.</p></div>
-      <div class="glass-card prize-card second"><div class="prize-amount">🥈 2nd</div><h3>Second Place</h3><p>Cash prize, Canva rewards, certificates, swag, and networking opportunities.</p></div>
-      <div class="glass-card prize-card third"><div class="prize-amount">🥉 3rd</div><h3>Third Place</h3><p>Cash prize, Canva rewards, certificates, swag, and recognition in our community.</p></div>
-      <div class="glass-card prize-card"><div class="prize-amount" style="color: var(--glow-color);">🎁 Top 7 Teams</div><h3>Special Mentions</h3><p>Canva rewards, certificates, exclusive swag, and feature spotlights for innovative solutions.</p></div>
+
+  <section id="prizes" class="section animate-fade">
+    <h2 class="section-title">Exciting Prize Pool</h2>
+    <div class="glass-card" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <p style="font-size: 1.4rem; color: var(--glow-color); margin-bottom: 1rem;">💰 Funded by PEIRC & PDEU IIC</p>
+      <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+        Prize pool details coming soon. Join our WhatsApp group for updates: <a href="https://chat.whatsapp.com/HS4NnLKSlk67v6ORM0qAKj" target="_blank" style="color: var(--glow-color); text-decoration: underline;">Join Now</a>
+      </p>
+      <h3 style="font-family: 'Orbitron', monospace; color: var(--glow-color); margin-bottom: 1rem;">🏆 Prize Distribution:</h3>
+      <div class="prizes-grid">
+        <div class="prize-card first">
+          <div class="prize-amount">🥇 1st</div>
+          <h3>First Place</h3>
+          <p>Cash prize, Canva rewards, certificates, premium swag, and mentorship opportunities.</p>
+        </div>
+        <div class="prize-card second">
+          <div class="prize-amount">🥈 2nd</div>
+          <h3>Second Place</h3>
+          <p>Cash prize, Canva rewards, certificates, swag, and networking opportunities.</p>
+        </div>
+        <div class="prize-card third">
+          <div class="prize-amount">🥉 3rd</div>
+          <h3>Third Place</h3>
+          <p>Cash prize, Canva rewards, certificates, swag, and recognition in our community.</p>
+        </div>
+        <div class="prize-card">
+          <div class="prize-amount" style="color: var(--glow-color);">🎁 Top 7</div>
+          <h3>Special Mentions</h3>
+          <p>Canva rewards, certificates, exclusive swag, and feature spotlights for innovative solutions.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
- 
-  <section id="schedule" class="section animate-on-scroll">
+  </section>
+
+  <section id="schedule" class="section animate-fade">
     <h2 class="section-title">Event Timeline</h2>
     <div class="schedule-grid">
       <div class="glass-card schedule-item">
@@ -965,7 +792,8 @@
       </div>
     </div>
   </section>
-  <section id="themes" class="section animate-on-scroll">
+
+  <section id="themes" class="section animate-fade">
     <h2 class="section-title">Challenge Themes</h2>
     <div class="themes-grid">
       <div class="glass-card theme-card">
@@ -1000,7 +828,21 @@
       </div>
     </div>
   </section>
-  <!-- Registration Modal -->
+
+  <section id="faq" class="section animate-fade">
+    <h2 class="section-title">Got Questions?</h2>
+    <div class="glass-card" style="max-width: 700px; margin: 0 auto;">
+      <form id="question-form">
+        <div class="form-group">
+          <label for="question">Ask us anything about the hackathon</label>
+          <textarea id="question" placeholder="What would you like to know about शुभ-Aarambh 2025?" required rows="4"></textarea>
+        </div>
+        <button type="submit" id="question-submit" class="cta-button" style="width: 100%;">Submit Question</button>
+      </form>
+      <div id="question-response" class="response-message"></div>
+    </div>
+  </section>
+
   <div id="registrationModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
@@ -1068,7 +910,7 @@
       <div id="team-register-response" class="response-message"></div>
     </div>
   </div>
-  <!-- Join Now Popup Modal -->
+
   <div id="joinNowPopup" class="modal">
     <div class="modal-content" style="max-width: 500px; text-align: center;">
       <span class="close" id="popupClose">&times;</span>
@@ -1077,19 +919,7 @@
       <button id="popupRegisterBtn" class="cta-button">Register Now 🚀</button>
     </div>
   </div>
-  <section id="faq" class="section animate-on-scroll">
-    <h2 class="section-title">Got Questions?</h2>
-    <div class="glass-card" style="max-width: 700px; margin: 0 auto;">
-      <form id="question-form">
-        <div class="form-group">
-          <label for="question">Ask us anything about the hackathon</label>
-          <textarea id="question" placeholder="What would you like to know about शुभ-Aarambh 2025?" required rows="4"></textarea>
-        </div>
-        <button type="submit" id="question-submit" class="cta-button" style="width: 100%;">Submit Question</button>
-      </form>
-      <div id="question-response" class="response-message"></div>
-    </div>
-  </section>
+
   <footer>
     <div style="max-width: 1200px; margin: 0 auto;">
       <p style="font-size: 1.1rem; margin-bottom: 1rem;">
@@ -1100,56 +930,75 @@
       </p>
     </div>
   </footer>
+
   <script>
-    // Initialize Supabase client
     const { createClient } = supabase;
     const supabaseClient = createClient(
       'https://tgpsnipxdduxljybwjah.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHNuaXB4ZGR1eGxqeWJ3amFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyNTEzODEsImV4cCI6MjA3MjgyNzM4MX0.JGuybJNIWsj8pgTc3H-idY_fjhASWFfToZgkr0KeCB4'
     );
-    // Animate elements on scroll
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        menuToggle.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+      });
+    }
+    
+    document.querySelectorAll('#nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        if (menuToggle) menuToggle.textContent = '☰';
+      });
+    });
+
+    // Scroll animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
     };
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          // Trigger image load for team section
-          const imgs = entry.target.querySelectorAll('.team-member-avatar img');
-          imgs.forEach(img => {
-            if (!img.srcset) {
-              img.srcset = img.src; // Use src as fallback
-            }
-          });
         }
       });
     }, observerOptions);
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-      observer.observe(el);
-    });
-    // Countdown Timer
+    
+    document.querySelectorAll('.animate-fade').forEach(el => observer.observe(el));
+
+    // Countdown timer
     const deadline = new Date("2025-10-18T23:59:00+05:30");
+    
     function updateCountdown() {
       const now = new Date();
       const diff = deadline - now;
+      
       if (diff <= 0) {
         document.getElementById('countdown').innerHTML =
-          '<div style="grid-column: 1/-1; color: #00f2fe; font-size: 1.5rem; text-align: center;">🚀 Registration Closed!</div>';
+          '<div style="grid-column: 1/-1; color: var(--glow-color); font-size: 1.5rem;">🚀 Registration Closed!</div>';
         return;
       }
+      
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
       document.getElementById('days').textContent = days;
       document.getElementById('hours').textContent = hours;
       document.getElementById('minutes').textContent = minutes;
       document.getElementById('seconds').textContent = seconds;
     }
+    
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
     // Modal functionality
     const registerModal = document.getElementById('registrationModal');
     const popupModal = document.getElementById('joinNowPopup');
@@ -1157,151 +1006,169 @@
     const registerClose = document.querySelector('#registrationModal .close');
     const popupClose = document.getElementById('popupClose');
     const popupRegisterBtn = document.getElementById('popupRegisterBtn');
-    let registrationData = null;
-    openRegisterBtn.onclick = () => {
-      registerModal.style.display = 'block';
-    };
+    
+    openRegisterBtn.onclick = () => registerModal.style.display = 'block';
     registerClose.onclick = () => registerModal.style.display = 'none';
     popupClose.onclick = () => popupModal.style.display = 'none';
     popupRegisterBtn.onclick = () => {
       popupModal.style.display = 'none';
       registerModal.style.display = 'block';
     };
+    
     window.onclick = (event) => {
       if (event.target === registerModal) registerModal.style.display = 'none';
       if (event.target === popupModal) popupModal.style.display = 'none';
     };
-    // Join Now Popup
+
+    // Join popup after 25 seconds
     setTimeout(() => {
       if (registerModal.style.display !== 'block') {
         popupModal.style.display = 'block';
       }
     }, 25000);
-    // Registration form submission (free, no payment)
+
+    // Registration form
     document.getElementById('team-register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
+      
       const teamName = document.getElementById('team-name').value.trim();
       const names = document.querySelectorAll('input[name="name[]"]');
       const phones = document.querySelectorAll('input[name="phone[]"]');
       const emails = document.querySelectorAll('input[name="email[]"]');
       const responseElement = document.getElementById('team-register-response');
       const submitButton = document.getElementById('register-submit');
+      
       let members = [];
       let validMembers = 0;
+      
       for (let i = 0; i < 4; i++) {
         const name = names[i].value.trim();
         const phone = phones[i].value.trim();
         const email = emails[i].value.trim();
+        
         if (name || phone || email) {
           if (name && phone && email) {
             if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-              responseElement.textContent = `❌ Invalid email for member ${i + 1}`;
-              responseElement.style.color = '#ef4444';
+              responseElement.innerHTML = `<div style="color: #ef4444;">❌ Invalid email for member ${i + 1}</div>`;
               return;
             }
             if (!phone.match(/^[0-9]{10}$/)) {
-              responseElement.textContent = `❌ Invalid phone number for member ${i + 1}`;
-              responseElement.style.color = '#ef4444';
+              responseElement.innerHTML = `<div style="color: #ef4444;">❌ Invalid phone number for member ${i + 1}</div>`;
               return;
             }
             members.push({ name, phone, email });
             validMembers++;
           } else {
-            responseElement.textContent = `❌ All fields required for member ${i + 1} if any provided`;
-            responseElement.style.color = '#ef4444';
+            responseElement.innerHTML = `<div style="color: #ef4444;">❌ All fields required for member ${i + 1} if any provided</div>`;
             return;
           }
         }
       }
+      
       if (validMembers === 0) {
-        responseElement.textContent = '❌ At least one member (primary registrant) is required!';
-        responseElement.style.color = '#ef4444';
+        responseElement.innerHTML = '<div style="color: #ef4444;">❌ At least one member is required!</div>';
         return;
       }
-      registrationData = {
+      
+      const registrationData = {
         team_name: teamName || 'Solo Registrant',
         members,
         payment_status: 'free',
         payment_proof: null
       };
+      
       submitButton.disabled = true;
       submitButton.textContent = 'Registering...';
+      
       try {
-        const { error: dbError } = await supabaseClient
+        const { error } = await supabaseClient
           .from('registrations')
           .insert([registrationData]);
-        if (dbError) throw dbError;
+        
+        if (error) throw error;
+        
         responseElement.innerHTML = `
-          <div style="color: #22c55e; text-align: center;">
-            🎉 Registration Successful! 🎉<br>
+          <div style="color: #22c55e; background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 12px;">
+            🎉 Registration Successful!<br>
             <strong>Welcome to शुभ-Aarambh 2025!</strong><br>
-            <a href="https://chat.whatsapp.com/JhMjOqYrY7MDdxfqf3LRZE?mode=ems_copy_c" target="_blank" style="color: var(--glow-color); text-decoration: underline;">💬 Join our WhatsApp group for updates</a><br>
-            🚀 Get ready to innovate!
+            <a href="https://chat.whatsapp.com/HS4NnLKSlk67v6ORM0qAKj" target="_blank" style="color: var(--glow-color);">💬 Join WhatsApp group</a>
           </div>
         `;
+        
         document.getElementById('team-register-form').reset();
+        
         setTimeout(() => {
           registerModal.style.display = 'none';
           responseElement.innerHTML = '';
-          registrationData = null;
           submitButton.disabled = false;
           submitButton.textContent = 'Register Now 🚀';
         }, 5000);
       } catch (error) {
-        responseElement.textContent = `❌ Failed to register: ${error.message}`;
-        responseElement.style.color = '#ef4444';
+        responseElement.innerHTML = `<div style="color: #ef4444;">❌ Failed: ${error.message}</div>`;
         submitButton.disabled = false;
         submitButton.textContent = 'Register Now 🚀';
       }
     });
-    // Question form submission
+
+    // Question form
     document.getElementById('question-form').addEventListener('submit', async (e) => {
       e.preventDefault();
+      
       const question = document.getElementById('question').value.trim();
       const responseElement = document.getElementById('question-response');
       const submitButton = document.getElementById('question-submit');
+      
       if (!question) {
-        responseElement.textContent = '❌ Please enter a valid question!';
-        responseElement.style.color = '#ef4444';
+        responseElement.innerHTML = '<div style="color: #ef4444;">❌ Please enter a question</div>';
         return;
       }
+      
+      submitButton.disabled = true;
+      submitButton.textContent = 'Submitting...';
+      
       try {
-        submitButton.disabled = true;
-        submitButton.textContent = 'Submitting...';
         const { error } = await supabaseClient
           .from('questions')
           .insert([{ question }]);
+        
         if (error) throw error;
+        
         responseElement.innerHTML = `
-          <div style="color: #22c55e; text-align: center;">
-            ✅ Question submitted successfully!<br>
-            We'll get back to you soon via email or WhatsApp.
+          <div style="color: #22c55e; background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 12px;">
+            ✅ Question submitted! We'll get back to you soon.
           </div>
         `;
+        
         document.getElementById('question').value = '';
+        
         setTimeout(() => {
           responseElement.innerHTML = '';
           submitButton.disabled = false;
           submitButton.textContent = 'Submit Question';
         }, 3000);
       } catch (error) {
-        responseElement.textContent = `❌ Failed to submit: ${error.message}`;
-        responseElement.style.color = '#ef4444';
+        responseElement.innerHTML = `<div style="color: #ef4444;">❌ Failed: ${error.message}</div>`;
         submitButton.disabled = false;
         submitButton.textContent = 'Submit Question';
       }
     });
-    // Smooth scrolling
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
-    // Particles.js configuration
+
+    // Theme toggle
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      document.body.classList.toggle('light-theme');
+      this.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+    });
+
+    // Particles.js
     particlesJS('particles-js', {
       particles: {
         number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -1334,29 +1201,11 @@
           resize: true
         },
         modes: {
-          grab: { distance: 140, line_linked: { opacity: 1 } },
-          bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
           repulse: { distance: 200, duration: 0.4 },
-          push: { particles_nb: 4 },
-          remove: { particles_nb: 2 }
+          push: { particles_nb: 4 }
         }
       },
       retina_detect: true
-    });
-    // Theme toggle
-    document.getElementById('theme-toggle').addEventListener('click', function() {
-      document.body.classList.toggle('light-theme');
-      this.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
-    });
-    // Optimize team image loading
-    document.querySelectorAll('.team-member-avatar img').forEach(img => {
-      img.addEventListener('load', () => {
-        img.classList.add('loaded');
-      });
-      // Fallback in case image fails to load
-      img.addEventListener('error', () => {
-        img.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><rect width="150" height="150" fill="%230c0c0c"/></svg>';
-      });
     });
   </script>
 </body>
