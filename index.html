@@ -833,6 +833,7 @@
         <li><a href="#prizes">Prizes</a></li>
         <li><a href="#schedule">Schedule</a></li>
         <li><a href="#themes">Themes</a></li>
+        <li><a href="#dashboard">Dashboard</a></li>
         <li><button class="theme-toggle" id="theme-toggle">🌙</button></li>
       </ul>
     </nav>
@@ -1030,6 +1031,19 @@
       </div>
     </div>
   </section>
+  <section id="dashboard" class="section animate-on-scroll">
+    <h2 class="section-title">Referral Dashboard</h2>
+    <div class="glass-card" style="max-width: 800px; margin: 0 auto;">
+      <form id="dashboard-form">
+        <div class="form-group">
+          <label for="referral-code">Your Referral Code</label>
+          <input type="text" id="referral-code" placeholder="Enter your referral code" required>
+        </div>
+        <button type="submit" class="cta-button" style="width: 100%;">View Referrals</button>
+      </form>
+      <div id="dashboard-content" style="margin-top: 2rem;"></div>
+    </div>
+  </section>
   <!-- Registration Modal -->
   <div id="registrationModal" class="modal">
     <div class="modal-content">
@@ -1090,6 +1104,10 @@
               <input type="email" name="email[]" placeholder="Email Address">
             </div>
           </div>
+        </div>
+        <div class="form-group">
+          <label for="referred-by">Referred By (Optional Referral Code)</label>
+          <input type="text" id="referred-by" name="referred-by" placeholder="Enter referral code if someone referred you">
         </div>
         <button type="submit" id="register-submit" class="cta-button" style="width: 100%; margin-top: 1rem;">
           Proceed to Payment 🚀
@@ -1249,6 +1267,7 @@
     document.getElementById('team-register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const teamName = document.getElementById('team-name').value.trim();
+      const referredBy = document.getElementById('referred-by').value.trim();
       const names = document.querySelectorAll('input[name="name[]"]');
       const phones = document.querySelectorAll('input[name="phone[]"]');
       const emails = document.querySelectorAll('input[name="email[]"]');
@@ -1286,11 +1305,20 @@
         responseElement.style.color = '#ef4444';
         return;
       }
+      if (referredBy) {
+        const { data: referrer } = await supabaseClient.from('registrations').select('id').eq('referral_code', referredBy).single();
+        if (!referrer) {
+          responseElement.textContent = '❌ Invalid referral code!';
+          responseElement.style.color = '#ef4444';
+          return;
+        }
+      }
       registrationData = {
         team_name: teamName || 'Solo Registrant',
         members,
         payment_status: 'pending',
-        payment_proof: null
+        payment_proof: null,
+        referred_by: referredBy || null
       };
       submitButton.disabled = true;
       submitButton.textContent = 'Proceeding to Payment...';
@@ -1334,15 +1362,25 @@
           .getPublicUrl(fileName);
         registrationData.payment_proof = publicURL;
         registrationData.payment_status = 'completed';
-        const { error: dbError } = await supabaseClient
+        const { data: insertedData, error: dbError } = await supabaseClient
           .from('registrations')
-          .insert([registrationData]);
+          .insert([registrationData])
+          .select();
         if (dbError) throw dbError;
+        const inserted = insertedData[0];
+        const referralCode = 'SHUBH-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        const { error: updateError } = await supabaseClient
+          .from('registrations')
+          .update({ referral_code: referralCode })
+          .eq('id', inserted.id);
+        if (updateError) throw updateError;
         uploadResponseElement.innerHTML = `
           <div style="color: #22c55e; text-align: center;">
             🎉 Registration Successful! 🎉<br>
             <strong>Welcome to शुभ-Aarambh 2025!</strong><br>
-            <a href="https://chat.whatsapp.com/JhMjOqYrY7MDdxfqf3LRZE?mode=ems_copy_c" target="_blank" style="color: var(--glow-color); text-decoration: underline;">💬 Join our WhatsApp group for updates</a><br>
+            Your unique referral code: <strong>${referralCode}</strong><br>
+            Share it with friends! If you bring 5-10 more teams, get 5% refund per team after the event.<br>
+            <a href="https://chat.whatsapp.com/HS4NnLKSlk67v6ORM0qAKj" target="_blank" style="color: var(--glow-color); text-decoration: underline;">💬 Join our WhatsApp group for updates</a><br>
             🚀 Get ready to innovate!
           </div>
         `;
@@ -1364,6 +1402,71 @@
           .insert([registrationData]);
         uploadButton.disabled = false;
         uploadButton.textContent = 'Submit Payment Proof';
+      }
+    });
+    // Dashboard functionality
+    document.getElementById('dashboard-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const code = document.getElementById('referral-code').value.trim();
+      const content = document.getElementById('dashboard-content');
+      if (!code) {
+        content.innerHTML = '<p style="color: #ef4444;">❌ Please enter a referral code!</p>';
+        return;
+      }
+      try {
+        const { data: myReg, error: err1 } = await supabaseClient
+          .from('registrations')
+          .select('*')
+          .eq('referral_code', code)
+          .single();
+        if (err1 || !myReg) {
+          content.innerHTML = '<p style="color: #ef4444;">❌ Invalid referral code!</p>';
+          return;
+        }
+        const { data: referrals, error: err2 } = await supabaseClient
+          .from('registrations')
+          .select('team_name, created_at')
+          .eq('referred_by', code)
+          .order('created_at', { ascending: false });
+        if (err2) throw err2;
+        const count = referrals.length;
+        let refund = 0;
+        if (count >= 5) {
+          refund = Math.min(count, 10) * 5; // 5 INR per team (5% of 100), capped at 10 teams
+        }
+        let html = `
+          <h3 style="color: var(--glow-color);">Your Referral Dashboard</h3>
+          <p><strong>Team:</strong> ${myReg.team_name}</p>
+          <p><strong>Total Referrals:</strong> ${count}</p>
+          <p><strong>Potential Refund:</strong> ₹${refund} (refunded after hackathon if eligible)</p>
+        `;
+        if (count > 0) {
+          html += `
+            <h4 style="margin-top: 2rem;">Referred Teams:</h4>
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="background: var(--glass-bg);">
+                  <th style="padding: 0.5rem; text-align: left;">Team Name</th>
+                  <th style="padding: 0.5rem; text-align: left;">Registered On</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+          referrals.forEach(r => {
+            html += `
+              <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 0.5rem;">${r.team_name}</td>
+                <td style="padding: 0.5rem;">${new Date(r.created_at).toLocaleString()}</td>
+              </tr>
+            `;
+          });
+          html += '</tbody></table>';
+        } else {
+          html += '<p>No referrals yet. Share your code!</p>';
+        }
+        content.innerHTML = html;
+      } catch (error) {
+        content.innerHTML = `<p style="color: #ef4444;">❌ Error loading dashboard: ${error.message}</p>`;
       }
     });
     // Question form submission
